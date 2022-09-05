@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-4">
+    <div class="p-3 shadow rounded w-75 mx-auto">
+        <h4 class="display-3 text-center mb-5">ADD A NEW SKILL</h4>
+        <form action="" method="POST">
+            {% csrf_token %}
+            
+
+            {% for field in form %}
+            <h3 class="my-2">{{field.label}}</h3>
+            {{field}}
+            {% endfor %}
+
+            <input type="submit" class="btn btn-primary text-light shadow rounded p-2 px-4 my-3" value="Submit">
+        </form>
+    </div>
+</div>
+{% endblock %}

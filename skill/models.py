@@ -11,7 +11,7 @@ class Skill(models.Model):
     skill_level = models.IntegerField(default=0)
     current_point = models.IntegerField(default=0)
     learning = models.BooleanField(default=True)
-    started_learning = models.DateField(null=True,blank=True)
+    started_learning = models.DateField(null=True,blank=True,auto_now_add=True)
 
     def __str__(self):
         return self.title

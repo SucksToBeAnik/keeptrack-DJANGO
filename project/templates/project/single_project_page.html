@@ -1,0 +1,46 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="container">
+    <h3 class="display-3 text-center">{{ project.title }}</h3> 
+    <p class="text-center mb-5">Published on {{ project.created_at }}</p>
+   
+
+    <div class="row">
+        <div class="col col-12 col-md-7">
+
+            <img src="{{ project.project_image.url }}" class="img-fluid w-75 shadow rounded" alt="" />
+
+            <div class="row py-5">
+                <div class="col col-6 text-md-center">
+                    <a href="" class="btn btn-outline-dark p-md-2">VIEW LIVE</a>
+                </div>
+                <div class="col col-6">
+                    <a href="" class="btn btn-outline-dark p-md-2">SEE CODE</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col col-12 col-md-5">
+            <span>Status - </span>
+            {% if project.project_state %}
+            <span class="bg-success px-3 py-1 rounded shadow text-light">Active</span>
+            {% else %}
+            <span class="bg-success  px-3 py-1 rounded shadow text-light">Completed</span>
+            {% endif %}
+
+            {% if project.description %}
+            <p class="lead fs-3 my-2">{{ project.description }}</p>
+            {% else %}
+            <p class="lead fs-3 my-2">Please add a description to the project.</p>
+            {% endif %}
+
+            {% for skill in project.skill.all %}
+            <a class="btn btn-light text-dark shadow my-2">
+                {{ skill.skill.title }}
+                <span class="badge bg-primary text-light">{{ skill.skill.skill_level }}</span>
+            </a>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}
