@@ -1,0 +1,38 @@
+#custom-nav-item:hover{
+    background-color: #574475;
+    border-radius: 5px;
+    transition-duration: 0.8s; 
+}
+
+#custom-bg{
+    background-color: #4C3575;
+    
+}
+
+
+
+#skill-page-card{
+    background-color: #645CAA;
+    box-shadow: 10px 10px 20px rgb(0, 0, 0 , 0.7);
+}
+
+#skill-page-btn{
+    width: 75%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border:1px solid #645CAA;
+    font-size: 100px;
+    color: #645CAA;
+    box-shadow: 5px 5px 15px rgb(0, 0, 0 , 0.7);
+}
+
+#skill-page-btn:hover{
+    background-color: #645CAA;
+    color: white;
+}
+
+#project-page-card{
+    background-color: #645CAA;
+    box-shadow: 10px 10px 20px rgb(0, 0, 0 , 0.7);
+}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="container">
+    <div class="py-3 px-3 shadow-sm ">
+    <h3 class="display-3 text-center">What skills are you learning today?</h3>
+    <p class="text-center lead fs-3 py-3">Keep track of your progress easily. Make progress by adding projects!</p>
+</div>
+    <div class="row py-5 py-md-2">
+        <div class="col-7 my-auto">
+            <div class="row gy-5">
+                <div class="text-center"><a class="col btn btn-outline-danger px-5 py-4 fs-5">Add a Project</a></div>
+                <div class="text-center"><a class="col btn btn-outline-danger px-5 py-4 fs-5">Add a Skill</a></div>
+            </div>
+        </div>
+        <div class="col-5">
+            <img src="{% static 'images/juicy-girl-is-working-on-laptop-at-a-remote-job.gif' %}" class="img-fluid my-5" alt="">
+        </div>
+    </div>
+</div>
+{% endblock %}

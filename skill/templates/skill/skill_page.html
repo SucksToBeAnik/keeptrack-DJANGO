@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+  <div class="d-flex justify-content-center align-items-center pb-5">
+
+    <img src="{% static 'images/sammy-line-remote-work.gif' %}" height="90" width="90" alt="">
+    
+    <h3 class="display-3 text-center px-3"> My Current Skills</h3>
+  
+  </div>
+  
+  
+            {% for skill in queryset %}
+            <a href="" class="text-reset text-decoration-none">
+                <div class="card text-white mb-5 mx-auto w-75 " id="skill-page-card">
+                    <div class="card-body">
+                      <h3 class="card-title">{{skill.title}}</h3>
+
+                      <p class="fs-6">{{skill.skill_type}}</p>
+                      <p class="fs-6">Started learning on {{ skill.started_learning }}</p>
+                      
+                      
+                      <p class="text-center display-2 pb-3">Level {{skill.skill_level}} </p>
+                    
+
+                      
+                      <div class="progress my-3">
+                        <div class="progress-bar w-{{ skill.current_point }} progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{ skill.current_point }}" aria-valuemin="0" aria-valuemax="100" style="background-color:#6f68a9;">{{ skill.current_point }} Points</div>
+                      </div>
+
+                      <p class="fs-6 text-center">You currently have {{ skill.current_point }} points. Earn points to gain Level.</p>
+
+                    </div>
+                  </div>
+            </a>
+            {% endfor %}
+            <a href="" class="btn p-5 my-5" id="skill-page-btn">+</a>
+        </div>
+        
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h3 class="mb-5 display-3 text-center" >My Projects</h3>
+    <div class="row">
+        <div class="col-12 col-md-6">
+            {% for project in queryset %}
+            
+            <div class="card p-2 mx-3 my-3" id="project-page-card">
+                <img src="{{ project.project_image.url }}" alt="" class="card-img-top rounded">
+
+                
+                <div class="card-body text-white">
+                    <h1 class="card-title display-4">{{ project.title }}</h1>
+                    {% if project.description %}
+                    <p class="lead"> {{ project.description }}</p>
+                    {% else %}
+                    <p class="lead">Please add a description to the project.</p>
+                    {% endif %}
+                    
+
+
+                    {% for skill in project.skill.all %}
+                    <a class="btn btn-light text-dark">
+                        {{ skill.skill.title }}
+                        <span class="badge bg-dark text-light">{{ skill.skill.skill_level }}</span>
+                      </a>
+                    {% endfor %}
+
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
