@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-4">
+    <div class="card shadow rounded p-4 w-75 mx-auto">
+        <h3 class="display-3 text-center mb-4">Add a new project</h3>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% for field in form %}
+            <h3 class="my-2">{{field.label}}</h3>
+            {{field}}
+            {% endfor %}
+
+            <label for="inputSelect" class="form-label h3">Project State</label>
+            <select class="form-select" aria-label="Default select" id="inputSelect" name="state">
+                <option selected="">Select option</option>
+                <option value="1">Completed</option>
+                <option value="0">Working</option>
+            </select>
+
+            <input type="submit" class="btn btn-primary text-light shadow rounded p-2 px-4 my-3" value="Submit">
+        </form>
+    </div>
+</div>
+{% endblock %}
