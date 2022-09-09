@@ -10,21 +10,31 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 px-5 fs-3">
-          <li class="navbar-item me-5" id="custom-nav-item">
-            <a href="{% url 'skill-page' %}" class="nav-link text-white text-uppercase">Skill</a>
+
+          <li class="nav-item dropdown me-5">
+            <button class="btn btn-outline-light dropdown-toggle text-uppercase" id="navbarWithDropdown" data-bs-toggle="dropdown" role="button" aria-expanded="false">Skill</button>
+            <div class="dropdown-menu" aria-labelledby="navbarWithDropdown">
+              <a class="dropdown-item text-uppercase" href="{% url 'skill-page' %}">Skills</a>
+              <a class="dropdown-item text-uppercase" href="{% url 'skill-form-page' %}">Add Skill</a>
+            </div>
           </li>
 
-          <li class="navbar-item me-5" id="custom-nav-item">
-            <a href="{% url 'project-page' %}" class="nav-link text-white text-uppercase">Project</a>
+
+          <li class="nav-item dropdown me-5">
+            <button class="btn btn-outline-light dropdown-toggle text-uppercase" id="navbarWithDropdown" data-bs-toggle="dropdown" role="button" aria-expanded="false">Project</button>
+            <div class="dropdown-menu" aria-labelledby="navbarWithDropdown">
+              <a class="dropdown-item text-uppercase" href="{% url 'project-page' %}">Projects</a>
+              <a class="dropdown-item text-uppercase" href="{% url 'project-form-page-create' %}?page=create">Add Project</a>
+            </div>
           </li>
 
-          <li class="navbar-item me-5" id="custom-nav-item">
-            <a href="" class="nav-link text-white text-uppercase">Note</a>
+          <li class="nav-item dropdown me-5">
+            <button class="btn btn-outline-light dropdown-toggle text-uppercase" id="navbarWithDropdown" data-bs-toggle="dropdown" role="button" aria-expanded="false">Note</button>
+            <div class="dropdown-menu" aria-labelledby="navbarWithDropdown">
+              <a class="dropdown-item text-uppercase" href="">Notes</a>
+              <a class="dropdown-item text-uppercase" href="{">Add Note</a>
+            </div>
           </li>
-          
-
-          <!-- dropdown for events -->
-          
  
           
         </ul>

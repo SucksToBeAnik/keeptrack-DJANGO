@@ -13,7 +13,7 @@
   
   
             {% for skill in queryset %}
-            <a href="" class="text-reset text-decoration-none">
+            <a href="{% url 'single-skill-page' skill.id %}" class="text-reset text-decoration-none">
                 <div class="card text-white mb-5 mx-auto w-75 " id="skill-page-card">
                     <div class="card-body">
                       <h3 class="card-title">{{skill.title}}</h3>
@@ -30,7 +30,7 @@
                         <div class="progress-bar w-{{ skill.current_point }} progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{ skill.current_point }}" aria-valuemin="0" aria-valuemax="100" style="background-color:#6f68a9;">{{ skill.current_point }} Points</div>
                       </div>
 
-                      <p class="fs-6 text-center">You currently have {{ skill.current_point }} points. Earn points to gain Level.</p>
+                      <p class="fs-6 text-center">You currently have {{ skill.current_point }} points. Earn {{ skill.needed_point }} more points to gain Level.</p>
 
                     </div>
                   </div>

@@ -5,9 +5,13 @@
 
     <div class="d-flex align-items-center justify-content-center pb-5">
         <a href="{% url 'project-form-page-update' %}?page=update&id={{project.id}}"
-            class="btn btn-outline-light px-4 mx-4 shadow text-dark">EDIT</a>
+            class="btn btn-outline-light px-4 mx-4 shadow text-dark">EDIT
+            <span class="ps-1"><i class="fas fa-edit"></i></span>
+        </a>
 
-        <button class="btn btn-outline-light px-4 mx-4 shadow text-dark" data-bs-toggle="modal" data-bs-target="#modalVertical">DELETE</button>
+        <button class="btn btn-outline-light px-4 mx-4 shadow text-dark" data-bs-toggle="modal" data-bs-target="#modalVertical">DELETE
+            <span class="ps-1"><i class="fas fa-trash"></i></span>
+        </button>
         <div class="modal fade" id="modalVertical" tabindex="-1" aria-labelledby="modalVerticalTitle"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">

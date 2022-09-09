@@ -16,7 +16,6 @@ from django.contrib import messages
 #     return render(request,'project/single_project_page.html',{'delete':delete})
 
 def project_form_page(request):
-    form = ProjectForm()
     if request.GET.get('page') == 'create':
         form = ProjectForm()
         if request.method == 'POST':
@@ -39,7 +38,7 @@ def project_form_page(request):
                     project.project_state = False
                 form.save()
                 messages.success(request,'The project has been updated successfully!')
-                return redirect('project-page')
+                return redirect('single-project-page',pk=project.id)
                 
     context ={
         'form':form,
