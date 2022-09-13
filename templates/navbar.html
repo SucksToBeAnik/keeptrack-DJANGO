@@ -1,48 +1,99 @@
 {% load static %}
 <nav class="navbar navbar-expand-lg navbar-light mb-5 shadow-lg" id="custom-bg">
-    <div class="container-fluid p-3 p-md-5">
-      <a class="navbar-brand fs-2 text-light fw-bold" href="{% url 'home-page' %}">
-        <img src="{% static 'svg/undraw_personal_notebook_re_d7dc.svg' %}" alt="icon" class="me-1 bg-transparent" width="72" height="72">
-        KeepTrack
+  <div class="container-fluid p-3 p-md-5">
+    <a class="navbar-brand fs-2 text-light fw-bold" href="{% url 'home-page' %}">
+      <img src="{% static 'svg/undraw_personal_notebook_re_d7dc.svg' %}" alt="icon" class="me-1 bg-transparent"
+        width="72" height="72">
+      KeepTrack
     </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0 px-5 fs-3">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 px-5 fs-3">
 
-          <li class="nav-item dropdown me-5">
-            <button class="btn btn-outline-light dropdown-toggle text-uppercase" id="navbarWithDropdown" data-bs-toggle="dropdown" role="button" aria-expanded="false">Skill</button>
-            <div class="dropdown-menu" aria-labelledby="navbarWithDropdown">
-              <a class="dropdown-item text-uppercase" href="{% url 'skill-page' %}">Skills</a>
-              <a class="dropdown-item text-uppercase" href="{% url 'skill-form-page' %}">Add Skill</a>
+        {% if user.is_authenticated %}
+        <li class="nav-item dropdown me-5 mb-3 mb-md-0">
+          <button class="btn btn-outline-light dropdown-toggle text-uppercase" id="navbarWithDropdown"
+            data-bs-toggle="dropdown" role="button" aria-expanded="false">Skill</button>
+          <div class="dropdown-menu" aria-labelledby="navbarWithDropdown">
+            <a class="dropdown-item text-uppercase" href="{% url 'skill-page' %}">Skills</a>
+            <a class="dropdown-item text-uppercase" href="{% url 'skill-form-page' %}">Add Skill</a>
+          </div>
+        </li>
+
+
+        <li class="nav-item dropdown me-5 mb-3 mb-md-0">
+          <button class="btn btn-outline-light dropdown-toggle text-uppercase" id="navbarWithDropdown"
+            data-bs-toggle="dropdown" role="button" aria-expanded="false">Project</button>
+          <div class="dropdown-menu" aria-labelledby="navbarWithDropdown">
+            <a class="dropdown-item text-uppercase" href="{% url 'project-page' %}">Projects</a>
+            <a class="dropdown-item text-uppercase" href="{% url 'project-form-page-create' %}?page=create">Add
+              Project</a>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown me-5 mb-3 mb-md-0">
+          <button class="btn btn-outline-light dropdown-toggle text-uppercase" id="navbarWithDropdown"
+            data-bs-toggle="dropdown" role="button" aria-expanded="false">Note</button>
+          <div class="dropdown-menu" aria-labelledby="navbarWithDropdown">
+            <a class="dropdown-item text-uppercase" href="">Notes</a>
+            <a class="dropdown-item text-uppercase" href="">Add Note</a>
+          </div>
+        </li>
+
+
+        <li class="nav-item me-5 mb-3 mb-md-0">
+          <form action="" method="POST">
+            {% csrf_token %}
+            <button type="submit" name="action" value="logout"
+              class="btn btn-outline-light px-3 shadow">LOGOUT</button>
+          </form>
+        </li>
+
+        {% else %}
+        <li class="nav-item mb-3 mb-md-0">
+          <a href="{% url 'login-page' %}" class="btn btn-outline-light px-3 mx-4 shadow">LOGIN</a>
+        </li>
+
+        <li class="nav-item mb-3 mb-md-0">
+          <button class="btn btn-outline-light px-3 mx-4 shadow" data-bs-toggle="modal"
+            data-bs-target="#modalUpdate">SIGNUP</button>
+          <div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="modalVerticalTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4>Create an Account</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form action="" method="POST">
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                    <h5>{{ field.label }}</h5>
+                    {{ field }}
+                    {% endfor %}
+
+                    <div class="my-2"><button type="submit" class="btn btn-outline-dark" name="action"
+                        value="register">Register</button></div>
+                  </form>
+                </div>
+              </div>
             </div>
-          </li>
+          </div>
+        </li>
+        {% endif %}
 
 
-          <li class="nav-item dropdown me-5">
-            <button class="btn btn-outline-light dropdown-toggle text-uppercase" id="navbarWithDropdown" data-bs-toggle="dropdown" role="button" aria-expanded="false">Project</button>
-            <div class="dropdown-menu" aria-labelledby="navbarWithDropdown">
-              <a class="dropdown-item text-uppercase" href="{% url 'project-page' %}">Projects</a>
-              <a class="dropdown-item text-uppercase" href="{% url 'project-form-page-create' %}?page=create">Add Project</a>
-            </div>
-          </li>
-
-          <li class="nav-item dropdown me-5">
-            <button class="btn btn-outline-light dropdown-toggle text-uppercase" id="navbarWithDropdown" data-bs-toggle="dropdown" role="button" aria-expanded="false">Note</button>
-            <div class="dropdown-menu" aria-labelledby="navbarWithDropdown">
-              <a class="dropdown-item text-uppercase" href="">Notes</a>
-              <a class="dropdown-item text-uppercase" href="{">Add Note</a>
-            </div>
-          </li>
- 
-          
-        </ul>
-        <form class="d-flex" method="POST" action="">
-          {% csrf_token %}
-          <input class="form-control me-2" type="search" placeholder="Search Here" aria-label="Search" name="searched">
-          <button class="btn btn-outline-light" type="submit">Search</button>
-        </form>
-      </div>
+      </ul>
+      <form class="d-flex" method="POST" action="">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Search Here" aria-label="Search" name="searched">
+        <button class="btn btn-outline-light" type="submit">Search</button>
+      </form>
     </div>
-  </nav>
+  </div>
+</nav>

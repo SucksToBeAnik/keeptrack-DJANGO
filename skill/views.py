@@ -34,7 +34,9 @@ def skill_form_page(request):
     if request.method == 'POST':
         form = SkillForm(request.POST)
         if form.is_valid():
-            form.save()
+            skill = form.save(commit=False)
+            skill.owner = request.user.profile
+            skill.save()
             messages.success(request,'A new skill has been successfully added!')
             return redirect('skill-page')
         else:
@@ -47,8 +49,9 @@ def skill_form_page(request):
 
 
 def skill_page(request):
+    profile = request.user.profile
     
-    queryset =Skill.objects.annotate(needed_point=100 - F('current_point'))
+    queryset =profile.skill_set.all()
 
     context = {
         'queryset':queryset,

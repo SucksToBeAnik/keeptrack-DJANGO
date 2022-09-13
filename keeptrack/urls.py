@@ -8,7 +8,7 @@ from django.urls import path, include
 
 from django.conf import settings
 from django.conf.urls.static import static
-from project import views
+from account import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -16,6 +16,7 @@ urlpatterns = [
     
     path('skill/',include('skill.urls')),
     path('project/',include('project.urls')),
+    path('account/',include('account.urls')),
     
 ]
 

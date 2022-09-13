@@ -2,10 +2,12 @@ from django.db import models
 from django.contrib.contenttypes.fields import GenericRelation
 
 from skill.models import SkillObj
+from account.models import Profile
 
 # Create your models here.
 
 class Project(models.Model):
+    owner = models.ForeignKey(Profile, on_delete=models.CASCADE,null=True,blank=True)
     skill = GenericRelation(SkillObj)
     title = models.CharField(max_length = 255)
     description = models.TextField(max_length=2000, null=True, blank=True)

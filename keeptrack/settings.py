@@ -41,9 +41,11 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'cloudinary',
     
+    'account.apps.AccountConfig',
     'project',
     'skill',
     'note',
+    
 ]
 
 MIDDLEWARE = [
