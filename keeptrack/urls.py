@@ -17,6 +17,7 @@ urlpatterns = [
     path('skill/',include('skill.urls')),
     path('project/',include('project.urls')),
     path('account/',include('account.urls')),
+    path('note/',include('note.urls')),
     
 ]
 

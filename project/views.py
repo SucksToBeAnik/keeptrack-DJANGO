@@ -17,7 +17,7 @@ from django.contrib.auth.decorators import login_required
 #     return render(request,'project/single_project_page.html',{'delete':delete})
 
 
-@login_required(login_url='home-page')
+@login_required(login_url='login-page')
 def project_form_page(request):
     if request.GET.get('page') == 'create':
         form = ProjectForm()
@@ -52,7 +52,7 @@ def project_form_page(request):
 
     return render(request, 'project/project_form_page.html',context)
 
-@login_required(login_url='home-page')
+@login_required(login_url='login-page')
 def single_project_page(request,pk):
     profile = request.user.profile
     project = profile.project_set.get(id=pk)
@@ -68,7 +68,7 @@ def single_project_page(request,pk):
 
 # def home_page(request):
 #     return render(request,'project/home_page.html')
-@login_required(login_url='home-page')
+@login_required(login_url='login-page')
 def project_page(request):
     profile = request.user.profile
     queryset = profile.project_set.all()

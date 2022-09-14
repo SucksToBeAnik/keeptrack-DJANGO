@@ -5,10 +5,11 @@ from django.db.models import F
 from .models import Skill
 from .forms import SkillForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
-
+@login_required(login_url="login-page")
 def single_skill_page(request,pk):
     skill = Skill.objects.get(id=pk)
     form = SkillForm(instance=skill)
@@ -28,7 +29,7 @@ def single_skill_page(request,pk):
     }
     return render(request,'skill/single_skill_page.html',context)
 
-
+@login_required(login_url="login-page")
 def skill_form_page(request):
     form = SkillForm()
     if request.method == 'POST':
@@ -48,6 +49,7 @@ def skill_form_page(request):
     return render(request,'skill/skill_form_page.html',context)
 
 
+@login_required(login_url="login-page")
 def skill_page(request):
     profile = request.user.profile
     

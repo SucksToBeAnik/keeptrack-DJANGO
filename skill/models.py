@@ -37,7 +37,7 @@ class SkillType(models.Model):
         return self.title
 
 class SkillObj(models.Model):
-    content_type = models.ForeignKey(ContentType, null=True, blank=True, on_delete=models.SET_NULL)
+    content_type = models.ForeignKey(ContentType, null=True, on_delete=models.CASCADE)
     object_id = models.IntegerField()
     content_object = GenericForeignKey()
 

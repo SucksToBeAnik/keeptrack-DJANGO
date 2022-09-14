@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'project',
     'skill',
     'note',
+    'feedback'
     
 ]
 
