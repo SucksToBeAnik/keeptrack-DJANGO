@@ -14,7 +14,7 @@
 </head>
 <body class="position-relative">
     <div id="top"></div>
-    <a href="#top" class="btn btn-outline-primary py-1 px-2 position-fixed bottom-0 end-0 rounded-circle"><i class="fas fa-arrow-up"></i></a>
+    <a href="#top" class="btn btn-primary shadow py-2 px-3 position-fixed bottom-0 rounded-circle" style="z-index: 100;left:48%;"><i class="fas fa-arrow-up"></i></a>
 
     {% include 'navbar.html' %}
     {% if messages %}
@@ -28,6 +28,38 @@
     
     {% block content %}
     {% endblock %}
+
+    <div class=" py-4 shadow" id="custom-bg" style="margin-top: 7rem;">
+        <div class="container p-3">
+            <h3 class="mb-4 text-center text-light">FAQ</h3>
+          <div class="accordion accordion-flush w-75 mx-auto" id="accordionFlushExample">
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                  <h5>How do we earn coins <i class="fas fa-coins"></i> here?</h5>
+                </button>
+              </h2>
+              <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body"><p>You earn coins <i class="fas fa-coins"></i> by sharing feedbacks to others featured notes. Remember we grow by lifting others.</p></div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                  <h5>How do we gain skill levels here?</h5>
+                </button>
+              </h2>
+              <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body"><p>You gain a certain skill level by adding projects and notes related to that skill. Yes, you could randomly add dummy projects and notes to increase your level in a skill. But that would weaken your profile to others visiting your profile.</p></div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
 
 
     <script src="{% static 'js/bootstrap.bundle.js' %}">

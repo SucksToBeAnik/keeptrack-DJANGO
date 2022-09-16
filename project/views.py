@@ -74,9 +74,9 @@ def project_form_page(request):
 
 @login_required(login_url='login-page')
 def single_project_page(request,pk):
-    profile = request.user.profile
-    project = profile.project_set.get(id=pk)
-    if request.method == 'POST':
+    project = Project.objects.get(pk=pk)
+    
+    if request.method == 'POST' and project.owner == request.user.profile:
         project.delete()
         messages.success(request, f"Project {project.title} has been deleted successfully!")
         return redirect('project-page')

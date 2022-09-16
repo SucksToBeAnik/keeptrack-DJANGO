@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container">
-    <div class="py-3 px-3 shadow-sm ">
+    <div class="py-3 px-3 shadow-sm">
         <h4 class="display-4 text-center">What skills are you learning today {{ request.user }}?</h4>
         <p class="text-center lead fs-3 py-3">Keep track of your progress easily. Make progress by adding skills to your
             projects!</p>
@@ -25,7 +25,7 @@
         </div>
     </div>
 
-    <div class="my-2 py-2 px-3 shadow rounded">
+    <div class="my-2 py-2 pb-5 px-3 shadow-sm rounded">
     <h4 class="display-4 text-center my-3">Featured Notes</h4>
 
     {% if queryset %}
@@ -97,4 +97,6 @@
 </div>
 
 </div>
+
+
 {% endblock %}

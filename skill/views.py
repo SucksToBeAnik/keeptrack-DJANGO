@@ -11,14 +11,20 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url="login-page")
 def single_skill_page(request,pk):
-    skill = Skill.objects.get(id=pk)
+    profile = request.user.profile
+
+    try:
+        skill = profile.skill_set.get(id=pk)
+    except:
+        messages.info(request,'You are not authorized to view this page!')
+        return redirect('home-page')
     form = SkillForm(instance=skill)
 
-    if request.method == 'POST' and request.POST.get("action") == "delete":
+    if request.method == 'POST' and request.POST.get("action") == "delete" and skill.owner == request.user.profile :
         skill.delete()
         messages.success(request, f"Your skill on {skill.title} has been successfully deleted!")
         return redirect('skill-page')
-    elif request.method == 'POST' and request.POST.get("action") == "update":
+    elif request.method == 'POST' and request.POST.get("action") == "update" and skill.owner == request.user.profile:
         form = SkillForm(request.POST,instance=skill)
         if form.is_valid():
             form.save()
