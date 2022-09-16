@@ -3,15 +3,16 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 
 from .forms import CustomUserCreationForm
+from note.models import FeaturedNote
 
 # Create your views here.
 
     
 
 def home_page(request):
-    form = CustomUserCreationForm()
+    queryset = FeaturedNote.objects.all()
     context = {
-            'form':form,
+            'queryset': list(queryset),
         }
     if request.method == "POST" and request.POST.get("action") == "logout":
         logout(request)

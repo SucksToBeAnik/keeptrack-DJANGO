@@ -1,5 +1,7 @@
 {% load static %}
 <nav class="navbar navbar-expand-lg navbar-light mb-5 shadow-lg" id="custom-bg">
+
+
   <div class="container-fluid p-3 p-md-5">
     <a class="navbar-brand fs-2 text-light fw-bold" href="{% url 'home-page' %}">
       <img src="{% static 'svg/undraw_personal_notebook_re_d7dc.svg' %}" alt="icon" class="me-1 bg-transparent"
@@ -23,7 +25,6 @@
           </div>
         </li>
 
-
         <li class="nav-item dropdown me-5 mb-3 mb-md-0">
           <button class="btn btn-outline-light dropdown-toggle text-uppercase" id="navbarWithDropdown"
             data-bs-toggle="dropdown" role="button" aria-expanded="false">Project</button>
@@ -38,36 +39,47 @@
           <button class="btn btn-outline-light dropdown-toggle text-uppercase" id="navbarWithDropdown"
             data-bs-toggle="dropdown" role="button" aria-expanded="false">Note</button>
           <div class="dropdown-menu" aria-labelledby="navbarWithDropdown">
-            <a class="dropdown-item text-uppercase" href="">My Notes</a>
+            <a class="dropdown-item text-uppercase" href="{% url 'note-page' %}">My Notes</a>
           </div>
-        </li>
-
-
-        <li class="nav-item me-5 mb-3 mb-md-0">
-          <form action="{% url 'home-page' %}" method="POST">
-            {% csrf_token %}
-            <button type="submit" name="action" value="logout"
-              class="btn btn-outline-light px-3 shadow">LOGOUT</button>
-          </form>
-        </li>
-
-        {% else %}
-        <li class="nav-item mb-3 mb-md-0">
-          <a href="{% url 'login-page' %}" class="btn btn-outline-light px-3 mx-4 shadow">LOGIN</a>
-        </li>
-
-        <li class="nav-item mb-3 mb-md-0">
-          <a href="{% url 'register-page' %}" class="btn btn-outline-light px-3 mx-4 shadow">SIGN UP</a>
         </li>
         {% endif %}
 
+        <li class="nav-item dropdown me-5 mb-3 mb-md-0">
+          <button class="btn btn-outline-light dropdown-toggle text-uppercase" id="navbarWithDropdown"
+            data-bs-toggle="dropdown" role="button" aria-expanded="false">Account</button>
+
+          <div class="dropdown-menu" aria-labelledby="navbarWithDropdown">
+            {% if user.is_authenticated %}
+
+              <form action="{% url 'home-page' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" name="action" value="logout"
+                  class="btn dropdown-item me-5 mb-3 mb-md-0">LOGOUT</button>
+              </form>
+            
+            {% else %}
+            
+              <a href="{% url 'login-page' %}" class="btn dropdown-item me-5 mb-3 mb-md-0">LOGIN</a>
+            
+              <a href="{% url 'register-page' %}" class="btn dropdown-item me-5 mb-3 mb-md-0">SIGN UP</a>
+          
+            {% endif %}
+          </div>
+
+        </li>
 
       </ul>
-      <form class="d-flex" method="POST" action="">
+      
+      {% if user.is_authenticated %}
+      <span class="h3 text-light p-2 mx-5 shadow rounded my-2">{{ user.profile.coin }} <i class="fas fa-coins"></i></span>
+      {% endif %}
+
+      <form class="d-flex my-2" method="POST" action="">
         {% csrf_token %}
         <input class="form-control me-2" type="search" placeholder="Search Here" aria-label="Search" name="searched">
         <button class="btn btn-outline-light" type="submit">Search</button>
       </form>
+
     </div>
   </div>
 </nav>

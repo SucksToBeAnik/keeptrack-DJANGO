@@ -22,7 +22,7 @@
                 <label class="form-check-label" for="checkDefault1">{{skill}}</label>
             </div>
             {% endfor %}
-            {% elif skill_queryset == None and page == 'create' %}
+            {% elif not skill_queryset and page == 'create' %}
             <h3 class="text-muted my-2">Used Skills</h3>
             <p>Please add some skills before you add a project.</p>
             {% endif %}

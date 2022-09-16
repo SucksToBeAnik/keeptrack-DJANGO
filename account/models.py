@@ -19,6 +19,15 @@ class Profile(models.Model):
     linkedin = models.URLField(max_length=2000,blank=True,null=True)
     youtube = models.URLField(max_length=2000,blank=True,null=True)
 
+    coin = models.IntegerField(default=0,null=True,blank=True)
+
+    def add_coin(self,coin):
+        self.coin += coin
+        self.save()
+    
+    def reduce_coin(self,coin):
+        self.coin -= coin
+        self.save()
 
     def __str__(self):
         return self.username

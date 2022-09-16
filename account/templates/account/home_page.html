@@ -5,19 +5,96 @@
 {% block content %}
 <div class="container">
     <div class="py-3 px-3 shadow-sm ">
-    <h4 class="display-4 text-center">What skills are you learning today {{ request.user }}?</h4>
-    <p class="text-center lead fs-3 py-3">Keep track of your progress easily. Make progress by adding projects!</p>
-</div>
+        <h4 class="display-4 text-center">What skills are you learning today {{ request.user }}?</h4>
+        <p class="text-center lead fs-3 py-3">Keep track of your progress easily. Make progress by adding skills to your
+            projects!</p>
+
+    </div>
     <div class="row py-5 py-md-2">
         <div class="col-7 my-auto">
             <div class="row gy-5">
-                <div class="text-center"><a href="{% url 'project-form-page-create' %}?page=create" class="col btn btn-outline-danger px-5 py-2 py-md-4 fs-5">Add a Project</a></div>
-                <div class="text-center"><a href="{% url 'skill-form-page' %}" class="col btn btn-outline-danger px-5 py-2 py-md-4 fs-5">Add a Skill</a></div>
+                <div class="text-center"><a href="{% url 'project-form-page-create' %}?page=create"
+                        class="col btn btn-outline-danger px-5 py-2 py-md-4 fs-5">Add a Project</a></div>
+                <div class="text-center"><a href="{% url 'skill-form-page' %}"
+                        class="col btn btn-outline-danger px-5 py-2 py-md-4 fs-5">Add a Skill</a></div>
             </div>
         </div>
         <div class="col-5">
-            <img src="{% static 'images/juicy-girl-is-working-on-laptop-at-a-remote-job.gif' %}" class="img-fluid my-5" alt="">
+            <img src="{% static 'images/juicy-girl-is-working-on-laptop-at-a-remote-job.gif' %}" class="img-fluid my-5"
+                alt="">
         </div>
     </div>
+
+    <div class="my-2 py-2 px-3 shadow rounded">
+    <h4 class="display-4 text-center my-3">Featured Notes</h4>
+
+    {% if queryset %}
+    <div class="row">
+
+      {% for featured_note in queryset %}
+      <div class="col col-12 col-md-6">
+        <div class="card p-2 mx-3 my-3" id="project-page-card">
+          {% if featured_note.note.note_image %}
+          <img
+            src="{{ featured_note.note.note_image.url }}"
+            class="img-fluid w-100 shadow rounded"
+            id="note-image-h"
+            alt="Note Image"
+          />
+          {% else %}
+          <img
+            src="{% static 'images/default_note.png' %}"
+            class="img-fluid w-100 shadow rounded"
+            id="note-image-h"
+            alt="Note Image"
+          />
+          {% endif %}
+  
+          <div class="card-body text-white">
+            <div class="row">
+              <h5 class="col col-9 card-title display-5 font-monospace">{{ featured_note.note.title }}</h5>
+  
+              <div class="col col-3 py-4">
+                <span class="p-1 mx-1 rounded shadow">{{ featured_note.note.like.count }} <i class="fas fa-heart"></i></span>
+                <span class="p-1 mx-1 rounded shadow">{{ featured_note.note.comment.count }} <i class="fas fa-comment"></i></span>
+              </div>
+            </div>
+            
+            <p >Published on {{ featured_note.note.created_at }}</p>
+  
+
+            <figure class="py-3">
+                <blockquote class="blockquote">
+                    <p class="lead">{{ featured_note.note.body|slice:"60" }}
+                </blockquote>
+                <figcaption class="blockquote-footer text-light">Written by
+                    <a href="" class="fs-5 text-light"><cite title="Source Title">{{ featured_note.note.owner }}</cite></a>
+                </figcaption>
+            </figure>
+  
+  
+            
+            <div class="text-center">
+              <a
+                href="{% url 'single-note-page' featured_note.note.id %}"
+                class="btn btn-outline-light py-2 px-3 shadow"
+                >READ NOTE
+                <span><i class="fas fa-book px-2"></i></span>
+              </a>
+            </div>
+  
+  
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+  
+    </div>
+    {% else %}
+    <p class="lead text-center">You currently have no notes. Please add notes to your projects and skills to keep track of your progress.</p>
+    {% endif %}
+
+</div>
+
 </div>
 {% endblock %}

@@ -10,6 +10,7 @@ from django.contrib import messages
 # Create your models here.
 
 class Skill(models.Model):
+    
     note = GenericRelation(Note)
     owner = models.ForeignKey(Profile, on_delete=models.CASCADE,null=True,blank=True)
     skill_type = models.ForeignKey('SkillType', on_delete=models.SET_NULL, null=True)

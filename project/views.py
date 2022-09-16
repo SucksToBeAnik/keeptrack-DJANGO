@@ -24,6 +24,7 @@ def project_form_page(request):
     if request.GET.get('page') == 'create':
         profile = request.user.profile
         skill_queryset = profile.skill_set.all()
+        print(skill_queryset)
         form = ProjectForm()
         context ={
         'form':form,

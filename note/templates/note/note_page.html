@@ -1,6 +1,74 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 
-{% block content %}
+<div class="container">
+  <h3 class="mb-5 display-3 text-center">My Notes</h3>
 
-<h1>Notes</h1>
+  {% if queryset %}
+  <div class="row">
+
+    {% for note in queryset %}
+    <div class="col col-12 col-md-6">
+      <div class="card p-2 mx-3 my-3" id="project-page-card">
+        {% if note.note_image %}
+        <img
+          src="{{ note.note_image.url }}"
+          class="img-fluid w-100 shadow rounded"
+          id="note-image-h"
+          alt="Note Image"
+        />
+        {% else %}
+        <img
+          src="{% static 'images/default_note.png' %}"
+          class="img-fluid w-100 shadow rounded"
+          id="note-image-h"
+          alt="Note Image"
+        />
+        {% endif %}
+
+        <div class="card-body text-white">
+          <div class="row">
+            <h5 class="col col-9 card-title display-5 font-monospace">{{ note.title }}</h5>
+
+            <div class="col col-3 py-4">
+              <span class="p-1 mx-1 rounded shadow">{{ note.like.count }} <i class="fas fa-heart"></i></span>
+              <span class="p-1 mx-1 rounded shadow">{{ note.comment.count }} <i class="fas fa-comment"></i></span>
+            </div>
+          </div>
+          
+          <p >Published on {{ note.created_at }}</p>
+
+          <p class="lead">{{ note.body|slice:"60"}}</p>
+
+
+          <div class="row">
+          <div class="text-center col col-6">
+            <a
+              href="{% url 'single-note-page' note.id %}"
+              class="btn btn-outline-light py-2 px-3 mt-4 shadow"
+              >READ NOTE
+              <span><i class="fas fa-book px-2"></i></span>
+            </a>
+          </div>
+
+          
+          <div class="col col-6">
+            <form action="" method="POST">
+              {% csrf_token %}
+              <div class="text-center"><button type="submite" name="note-id" value="{{ note.id }}" class="btn btn-outline-light py-2 px-3 shadow mt-4">FEATURE NOTE <span><i class="fas fa-upload px-1"></i></span> </button></div>
+            </form>
+          </div>
+          
+
+        </div>
+
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+  {% else %}
+  <p class="lead text-center">You currently have no notes. Please add notes to your projects and skills to keep track of your progress.</p>
+  {% endif %}
+</div>
 {% endblock %}

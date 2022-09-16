@@ -6,3 +6,7 @@ from .models import Note, FeaturedNote
 @admin.register(Note)
 class NoteAdmin(admin.ModelAdmin):
     list_display = ['title','owner','created_at']
+
+@admin.register(FeaturedNote)
+class FeaturedNoteAdmin(admin.ModelAdmin):
+    list_display = ['note']

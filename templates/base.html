@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <script defer src="{% static 'js/all.js' %}"></script>
 </head>
-<body>
-    
-    
+<body class="position-relative">
+    <div id="top"></div>
+    <a href="#top" class="btn btn-outline-primary py-1 px-2 position-fixed bottom-0 end-0 rounded-circle"><i class="fas fa-arrow-up"></i></a>
 
     {% include 'navbar.html' %}
     {% if messages %}
