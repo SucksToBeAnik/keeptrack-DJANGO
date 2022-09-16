@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container my-4">
+    <div class="card shadow rounded p-4 w-75 mx-auto">
+      <h3 class="display-3 my-3 text-uppercase text-center">Register Here</h3>
+        <form action="{% url 'home-page' %}" method="POST">
+            {% csrf_token %}
+
+            {% for field in form %}
+            <h5>{{ field.label }}</h5>
+            {{ field }}
+            {% endfor %}
+
+            <div class="mt-4"><button type="submit" class="btn btn-primary">Register</button></div>
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}

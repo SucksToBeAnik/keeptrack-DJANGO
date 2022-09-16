@@ -5,6 +5,8 @@ from .forms import ProjectForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+from skill.models import Skill, SkillObj
+
 # Create your views here.
 
 # def project_delete_page(request,pk):
@@ -20,20 +22,39 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url='login-page')
 def project_form_page(request):
     if request.GET.get('page') == 'create':
+        profile = request.user.profile
+        skill_queryset = profile.skill_set.all()
         form = ProjectForm()
+        context ={
+        'form':form,
+        'page':'create',
+        'skill_queryset':list(skill_queryset),
+    }
         if request.method == 'POST':
             form = ProjectForm(request.POST, request.FILES)
-            if form.is_valid():
+            skill_list = request.POST.getlist("skills")
+            if form.is_valid() and skill_list:
                 project = form.save(commit=False)
                 project.owner = request.user.profile
                 project.save()
+                for skill_id in skill_list:
+                    skill_obj = Skill.objects.get(pk=int(skill_id))
+                    SkillObj.objects.create(skill=skill_obj,content_object=project)
+                    skill_obj.update_skill_level(request,50)
                 messages.success(request,'The project has been added successfully!')
                 return redirect('project-page')
+            else:
+                messages.warning(request, 'Please add some skills to your project.')
                 
     elif request.GET.get('page') == 'update':
         id = request.GET.get('id')
         project = Project.objects.get(id = id)
         form = ProjectForm(instance=project)
+        context ={
+        'form':form,
+        'page':'update',
+        'skill_queryset':None,
+    }
         if request.method == 'POST':
             form = ProjectForm(request.POST,request.FILES,instance=project)
             if form.is_valid():
@@ -45,9 +66,7 @@ def project_form_page(request):
                 messages.success(request,'The project has been updated successfully!')
                 return redirect('single-project-page',pk=project.id)
                 
-    context ={
-        'form':form,
-    }
+    
 
 
     return render(request, 'project/project_form_page.html',context)

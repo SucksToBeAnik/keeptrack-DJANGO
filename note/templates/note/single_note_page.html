@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container my-2">
+    <div class="card w-100 mx-auto">
+        
+        <div class="card-body">
+            <h4 class="card-title text-center display-4 font-monospace">{{ note.title }}</h4>
+            
+            
+            <div class="d-flex align-items-center justify-content-center pb-5">
+                <a href="{% url 'note-form-page-update' note.id %}"
+                    class="btn btn-outline-light px-4 mx-4 shadow text-dark">EDIT
+                    <span class="ps-1"><i class="fas fa-edit"></i></span>
+                </a>
+        
+                <button class="btn btn-outline-light px-4 mx-4 shadow text-dark" data-bs-toggle="modal" data-bs-target="#modalVertical">DELETE
+                    <span class="ps-1"><i class="fas fa-trash"></i></span>
+                </button>
+                <div class="modal fade" id="modalVertical" tabindex="-1" aria-labelledby="modalVerticalTitle"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalVerticalTitle">{{note.title}}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="lead">Are you sure you want to delete this note?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <form action="" method='POST'>
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-outline-danger" name="action" value="delete">Delete</button>
+                                </form>
+                                
+                                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+
+
+            {% if note.note_image %}
+        <div class="text-center"><img src="{{ note.note_image.url }}" class="img-fluid w-100 shadow rounded" id="note-image-h"
+            alt="Note Image" /></div>
+        {% else %}
+        
+        <div class="text-center"><img src="{% static 'images/default_note.png' %}" class="img-fluid w-75 rounded" id="note-image-h"
+            alt="Project Image" /></div>
+        {% endif %}
+
+            <figure class="py-3">
+                <blockquote class="blockquote">
+                    <p class="lead">{{ note.body|linebreaksbr }}
+                </blockquote>
+                <figcaption class="blockquote-footer mt-2">By 
+                    <cite title="Source Title">{{ note.owner }}</cite>
+                    Published on {{ note.created_at }}
+                </figcaption>
+                
+            </figure>
+            
+        </div>
+    </div>
+
+</div>
+{% endblock %}

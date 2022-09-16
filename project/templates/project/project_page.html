@@ -11,16 +11,24 @@
         <div class="col col-12 col-md-6">
             <div class="card p-2 mx-3 my-3" id="project-page-card">
                 {% if project.project_image %}
-            <img src="{{ project.project_image.url }}" class="img-fluid w-100 shadow rounded" id="project-image-h" alt="Project Image" />
-            {% else %}
-            <img src="{% static 'images/default_project.jpg' %}" class="img-fluid w-100 shadow rounded" id="project-image-h" alt="Project Image" />
-            {% endif %}
+                <img src="{{ project.project_image.url }}" class="img-fluid w-100 shadow rounded" id="project-image-h"
+                    alt="Project Image" />
+                {% else %}
+                <img src="{% static 'images/default_project.jpg' %}" class="img-fluid w-100 shadow rounded"
+                    id="project-image-h" alt="Project Image" />
+                {% endif %}
 
                 <div class="card-body text-white">
-                    <h1 class="card-title display-5">{{ project.title }}</h1>
+                    <h1 class="card-title display-5">{{ project.title }}
+                        {% if project.project_state != True %}
+                        <span class="fs-1"><i class="fas fa-circle fa-sm fa-fade text-light"></i></span>
+                        {% endif %}
+                    </h1>
+
+
 
                     {% for skill in project.skill.all %}
-                    <a class="btn btn-light text-dark">
+                    <a href="{% url 'single-skill-page' skill.skill.id %}" class="btn btn-light text-dark">
                         {{ skill.skill.title }}
                         <span class="badge bg-primary text-light">{{ skill.skill.skill_level }}</span>
                     </a>
@@ -34,7 +42,9 @@
 
 
                     <div class="text-center"><a href="{% url 'single-project-page' project.id %}"
-                            class="btn btn-outline-light py-2 px-4 fs-5 mt-4 shadow">VIEW PROJECT</a></div>
+                            class="btn btn-outline-light py-2 px-4 fs-5 mt-4 shadow">VIEW PROJECT
+                            <span><i class="fas fa-eye"></i></span>
+                        </a></div>
 
                 </div>
             </div>

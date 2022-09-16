@@ -39,13 +39,12 @@
             data-bs-toggle="dropdown" role="button" aria-expanded="false">Note</button>
           <div class="dropdown-menu" aria-labelledby="navbarWithDropdown">
             <a class="dropdown-item text-uppercase" href="">My Notes</a>
-            <a class="dropdown-item text-uppercase" href="">Add Note</a>
           </div>
         </li>
 
 
         <li class="nav-item me-5 mb-3 mb-md-0">
-          <form action="" method="POST">
+          <form action="{% url 'home-page' %}" method="POST">
             {% csrf_token %}
             <button type="submit" name="action" value="logout"
               class="btn btn-outline-light px-3 shadow">LOGOUT</button>
@@ -58,32 +57,7 @@
         </li>
 
         <li class="nav-item mb-3 mb-md-0">
-          <button class="btn btn-outline-light px-3 mx-4 shadow" data-bs-toggle="modal"
-            data-bs-target="#modalUpdate">SIGNUP</button>
-          <div class="modal fade" id="modalUpdate" tabindex="-1" aria-labelledby="modalVerticalTitle"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h4>Create an Account</h4>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <form action="" method="POST">
-                    {% csrf_token %}
-
-                    {% for field in form %}
-                    <h5>{{ field.label }}</h5>
-                    {{ field }}
-                    {% endfor %}
-
-                    <div class="my-2"><button type="submit" class="btn btn-outline-dark" name="action"
-                        value="register">Register</button></div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
+          <a href="{% url 'register-page' %}" class="btn btn-outline-light px-3 mx-4 shadow">SIGN UP</a>
         </li>
         {% endif %}
 

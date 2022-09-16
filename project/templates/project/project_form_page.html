@@ -12,7 +12,24 @@
             {{field}}
             {% endfor %}
 
-            <label for="inputSelect" class="form-label h3">Project State</label>
+
+            
+            {% if skill_queryset %}
+            <h3 class="text-muted my-2">Used Skills</h3>
+            {% for skill in skill_queryset %}
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="checkDefault1" name="skills" value="{{ skill.id }}">
+                <label class="form-check-label" for="checkDefault1">{{skill}}</label>
+            </div>
+            {% endfor %}
+            {% elif skill_queryset == None and page == 'create' %}
+            <h3 class="text-muted my-2">Used Skills</h3>
+            <p>Please add some skills before you add a project.</p>
+            {% endif %}
+            
+            
+
+            <label for="inputSelect" class="form-label h3 my-2">Project State</label>
             <select class="form-select" aria-label="Default select" id="inputSelect" name="state">
                 <option selected="">Select option</option>
                 <option value="1">Completed</option>
