@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Skill, SkillType, SkillObj
+from .models import Skill, SkillObj
 
 # Register your models here.
 
@@ -7,9 +7,7 @@ from .models import Skill, SkillType, SkillObj
 class SkillAdmin(admin.ModelAdmin):
     list_display = ['title','skill_level','skill_type']
 
-@admin.register(SkillType)
-class SkillTypeAdmin(admin.ModelAdmin):
-    list_display = ['title']
+
 
 @admin.register(SkillObj)
 class SkillObjAdmin(admin.ModelAdmin):

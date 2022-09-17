@@ -10,10 +10,22 @@ from django.contrib import messages
 # Create your models here.
 
 class Skill(models.Model):
-    
+    SKILL_TYPE_CHOICES = (
+        ('Programming Language','Programming Language'),
+        ('Database','Database'),
+        ('Hosting Platform','Hosting Platform'),
+        ('Coding Utility','Coding Utility'),
+        ('Frontend Framework','Frontend Framework'),
+        ('Backend Framework','Backend Framework'),
+        ('Machine Learning Tool','Machine Learning Tool'),
+        ('Data Science Tool','Data Science Tool'),
+        ('Artificial Intelligence Tool','Artificial Intelligence Tool')
+    )
+    skill_type = models.CharField(max_length=200,choices=SKILL_TYPE_CHOICES,null=True,blank=True)
+
     note = GenericRelation(Note)
-    owner = models.ForeignKey(Profile, on_delete=models.CASCADE,null=True,blank=True)
-    skill_type = models.ForeignKey('SkillType', on_delete=models.SET_NULL, null=True)
+    owner = models.ForeignKey(Profile, on_delete=models.CASCADE,null=True,blank=True,default="Coding Utility")
+    
     title = models.CharField(max_length=255)
     description = models.TextField(max_length=500,null=True,blank=True)
     skill_level = models.IntegerField(default=1)
@@ -37,12 +49,12 @@ class Skill(models.Model):
     def needed_point(self):
         return self.skill_level*50 - self.current_point
 
-class SkillType(models.Model):
-    title = models.CharField(max_length=255)
-    # skill_set
+# class SkillType(models.Model):
+#     title = models.CharField(max_length=255)
+#     # skill_set
 
-    def __str__(self):
-        return self.title
+#     def __str__(self):
+#         return self.title
 
 class SkillObj(models.Model):
     content_type = models.ForeignKey(ContentType, null=True, on_delete=models.CASCADE)

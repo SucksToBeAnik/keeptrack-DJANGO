@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static%}
 {% block content %}
 
 <div class="container py-2 px-3">
@@ -70,6 +71,147 @@
 
 
     </div>
+
+
+
+
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button type="button" id="tabFade-1" class="nav-link active fs-3 font-monospace" data-bs-toggle="tab" data-bs-target="#tabFade-pane-1" role="tab" aria-controls="tabFade-pane-1" aria-selected="true">Projects</button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+          <button type="button" id="tabFade-2" class="nav-link fs-3 font-monospace" data-bs-toggle="tab" data-bs-target="#tabFade-pane-2" role="tab" aria-controls="tabFade-pane-2" aria-selected="false">Notes</button>
+        </li>
+        
+      </ul>
+
+
+      <div class="tab-content">
+
+        <div id="tabFade-pane-1" class="tab-pane fade show active" role="tabpanel" aria-labelledby="tabFade-1">
+          
+        {% if my_projects %}
+        {% for project in my_projects %}
+
+
+        <div class="col col-12 col-md-6">
+            <div class="card p-2 mx-3 my-3" id="project-page-card">
+                {% if project.project_image %}
+                <img src="{{ project.project_image.url }}" class="img-fluid w-100 shadow rounded" id="project-image-h"
+                    alt="Project Image" />
+                {% else %}
+                <img src="{% static 'images/default_project.jpg' %}" class="img-fluid w-100 shadow rounded"
+                    id="project-image-h" alt="Project Image" />
+                {% endif %}
+
+                <div class="card-body text-white">
+                    <h1 class="card-title display-5">{{ project.title }}
+                        {% if project.project_state != True %}
+                        <span class="fs-1"><i class="fas fa-circle fa-sm fa-fade text-light"></i></span>
+                        {% endif %}
+                    </h1>
+
+
+
+                    {% for skill in project.skill.all %}
+                    <a href="{% url 'single-skill-page' skill.skill.id %}" class="btn btn-sm btn-light text-dark">
+                        {{ skill.skill.title }}
+                        <span class="badge bg-primary text-light">{{ skill.skill.skill_level }}</span>
+                    </a>
+                    {% endfor %}
+
+                    {% if project.description %}
+                    <p class="lead"> {{ project.description }}</p>
+                    {% else %}
+                    <p class="lead">Please add a description to the project.</p>
+                    {% endif %}
+
+
+                    <div class="text-center"><a href="{% url 'single-project-page' project.id %}"
+                            class="btn btn-sm btn-outline-light py-1 px-3 fs-5 mt-4 shadow">VIEW PROJECT
+                            <span><i class="fas fa-eye"></i></span>
+                        </a></div>
+
+                </div>
+            </div>
+
+        </div>
+
+        {% endfor %}
+        {% else %}
+        <p class="lead text-center my-4">There are no projects to showcase.</p>
+        {% endif %}
+        
+        </div>
+
+
+        <div id="tabFade-pane-2" class="tab-pane fade" role="tabpanel" aria-labelledby="tabFade-2">
+
+            {% if my_notes %}
+<div class="row">
+            {% for featured_note in my_notes %}
+            <div class="col col-12 col-md-6">
+                <div class="card p-2 mx-3 my-3" id="project-page-card">
+                  {% if featured_note.note.note_image %}
+                  <img
+                    src="{{ featured_note.note.note_image.url }}"
+                    class="img-fluid w-100 shadow rounded"
+                    id="note-image-h"
+                    alt="Note Image"
+                  />
+                  {% else %}
+                  <img
+                    src="{% static 'images/default_note.png' %}"
+                    class="img-fluid w-100 shadow rounded"
+                    id="note-image-h"
+                    alt="Note Image"
+                  />
+                  {% endif %}
+          
+                  <div class="card-body text-white">
+                    <div class="row">
+                      <h5 class="col col-9 card-title display-5 font-monospace">{{ featured_note.note.title }}</h5>
+          
+                      <div class="col col-3 py-4">
+                        <span class="p-1 mx-1 rounded shadow">{{ featured_note.note.like.count }} <i class="fas fa-heart"></i></span>
+                        <span class="p-1 mx-1 rounded shadow">{{ featured_note.note.comment.count }} <i class="fas fa-comment"></i></span>
+                      </div>
+                    </div>
+                    
+                    <p >Published on {{ featured_note.note.created_at }}</p>
+          
+                    <p class="lead">{{ featured_note.note.body|slice:"60"}}</p>
+          
+          
+                    
+                    <div class="text-center">
+                      <a
+                        href="{% url 'single-note-page' featured_note.note.id %}"
+                        class="btn btn-outline-light py-2 px-3 mt-4 shadow"
+                        >READ NOTE
+                        <span><i class="fas fa-book px-2"></i></span>
+                      </a>
+                          
+          
+                  </div>
+          
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+        </div>
+
+            {% else %}
+            There are no notes to showcase.
+            {% endif %}
+          </div>
+    
+      </div>
+
+
+
+
 </div>
 
 {% endblock %}

@@ -131,19 +131,21 @@ def note_page(request):
         note_id = int(request.POST.get('note-id'))
         note = Note.objects.get(pk=note_id)
         count = 0
-        for featured_note in note.featured_notes.all():
+        for featured_note in FeaturedNote.objects.all():
             if featured_note.note.id == note.id:
                 count+=1
                 break
         if count == 1:
             messages.info(request, 'You have already featured this note.')
+            return redirect('note-page')
         elif owner.coin >= 50 and count == 0:
             FeaturedNote.objects.create(note=note)
             owner.reduce_coin(50)
             messages.success(request, 'Your note was featured. Now others can see your note on the home page.')
             return redirect('note-page')
         else:
-            messages.warning(request, 'You do not have enough coins to feature this note. Earn coins by commenting on others featured note.')
+            messages.warning(request, 'You do not have enough coins to feature this note. Earn coins by commenting on others notes.')
+            return redirect('note-page')
 
     context = {
         'queryset' : list(queryset),

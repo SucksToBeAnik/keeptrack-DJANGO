@@ -16,9 +16,9 @@
   <a href="{% url 'single-skill-page' skill.id %}" class="text-reset text-decoration-none">
     <div class="card text-white mb-5 mx-auto w-75 " id="skill-page-card">
       <div class="card-body">
-        <h3 class="card-title">{{skill.title}}</h3>
+        <h3 class="card-title d-inline">{{skill.title}}</h3>
 
-        <p class="fs-6">{{skill.skill_type}}</p>
+        <p class="fs-6"><code class="text-light">{{skill.skill_type}}</code></p>
         <p class="fs-6">Started learning on {{ skill.started_learning }}</p>
 
 
@@ -32,7 +32,7 @@
             style="background-color:#6f68a9;">{{ skill.current_point }} Points</div>
         </div>
 
-        <p class="fs-6 text-center">Earn {{ skill.needed_point }} more points to reach next Level. Earn points by adding
+        <p class="fs-6 text-center ">{{ skill.needed_point }} more points to reach next Level. Earn points by adding
           skill related projects and notes.</p>
 
       </div>

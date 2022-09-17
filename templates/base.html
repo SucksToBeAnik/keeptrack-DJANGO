@@ -29,7 +29,7 @@
     {% block content %}
     {% endblock %}
 
-    <div class=" py-4 shadow" id="custom-bg" style="margin-top: 7rem;">
+    <footer class=" py-4 shadow" id="custom-bg" style="margin-top: 7rem;">
         <div class="container p-3">
             <h3 class="mb-4 text-center text-light">FAQ</h3>
           <div class="accordion accordion-flush w-75 mx-auto" id="accordionFlushExample">
@@ -37,29 +37,41 @@
             <div class="accordion-item">
               <h2 class="accordion-header" id="flush-headingOne">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                  <h5>How do we earn coins <i class="fas fa-coins"></i> here?</h5>
+                  <h5>Why do we need coins <i class="fas fa-coins"></i> ?</h5>
                 </button>
               </h2>
               <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body"><p>You earn coins <i class="fas fa-coins"></i> by sharing feedbacks to others featured notes. Remember we grow by lifting others.</p></div>
+                <div class="accordion-body"><p>You need coins <i class="fas fa-coins"></i> to feature your notes in the home page so that other users can find your notes. It costs 50 coins to feature a single note.</p></div>
               </div>
             </div>
 
             <div class="accordion-item">
               <h2 class="accordion-header" id="flush-headingTwo">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                  <h5>How do we gain skill levels here?</h5>
+                  <h5>How do we earn coins <i class="fas fa-coins"></i> here?</h5>
                 </button>
               </h2>
               <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body"><p>You are initially given 100 coins <i class="fas fa-coins"></i>. You also earn 25 coins <i class="fas fa-coins"></i> every time you share feedbacks to others featured notes. Remember we grow by lifting others.</p></div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="flush-headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                  <h5>How do we gain skill levels here?</h5>
+                </button>
+              </h2>
+              <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body"><p>You gain a certain skill level by adding projects and notes related to that skill. Yes, you could randomly add dummy projects and notes to increase your level in a skill. But that would weaken your image to others visiting your profile.</p></div>
               </div>
             </div>
 
 
           </div>
+          <p class="text-center text-light mt-5 mb-3">© All rights reserved by Jami Islam Anik</p>
         </div>
-      </div>
+      </footer>
 
 
     <script src="{% static 'js/bootstrap.bundle.js' %}">

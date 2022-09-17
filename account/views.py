@@ -9,7 +9,15 @@ from django.db.models import Count
 from django.contrib.auth.decorators import login_required
 
 
-
+def search_page(request,searched_value):
+    try:
+        queryset = Profile.objects.filter(username = searched_value)
+    except:
+        queryset = None
+    context = {
+        'queryset':queryset,
+    }
+    return render(request,'account/search_page.html',context)
 
 
 # Create your views here.
@@ -83,14 +91,30 @@ def account_update_page(request,username):
 @login_required(login_url='login-page')
 def account_page(request,username):
     profile = Profile.objects.get(username=username)
-    skill_count = profile.skill_set.count()
-    print('a:',skill_count)
+
+    my_projects = profile.project_set.all()
     project_count = profile.project_set.count()
+
+    
+    skill_count = profile.skill_set.count()
+
+    featured_notes = FeaturedNote.objects.all()
+    my_notes =[]
+
+    for i in featured_notes:
+        if i.note.owner == profile:
+            my_notes.append(i)
+
+    
     note_count = profile.note_set.count()
     context = {
         'profile':profile,
-        'skill_count':skill_count,
+        'my_projects':my_projects,
+
         'project_count':project_count,
+        'skill_count':skill_count,
+
+        'my_notes':my_notes,
         'note_count':note_count,
     }
 
@@ -114,6 +138,9 @@ def home_page(request):
         for notification in profile.notification_set.all():
             notification.delete()
         return redirect('home-page')
+    elif request.method == 'POST' and request.POST.get('searched'):
+        searched_value = request.POST.get('searched')
+        return redirect('search-page', searched_value = searched_value)
 
     
     return render(request,'account/home_page.html',context)

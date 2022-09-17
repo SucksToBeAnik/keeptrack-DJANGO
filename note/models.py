@@ -28,7 +28,7 @@ class Note(models.Model):
         ordering = ['-created_at']
 
 class FeaturedNote(models.Model):
-    note = models.ForeignKey(Note, on_delete=models.CASCADE,related_name="featured_notes")
+    note = models.OneToOneField(Note, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     class Meta:
         ordering = ['-created_at']

@@ -8,4 +8,5 @@ urlpatterns = [
     path('my-account-update/<str:username>/',views.account_update_page,name='account-update-page'),
     path('message/<str:receiver>/',views.message_form_page,name='message-form-page'),
     path('inbox/',views.inbox_page,name='inbox-page'),
+    path('search-result/<str:searched_value>/',views.search_page,name='search-page'),
 ]
