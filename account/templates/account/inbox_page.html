@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container px-2 py-2 my-2">
+
+    <h3 class="display-3 text-center mb-4">INBOX</h3>
+
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button type="button" id="tabFade-1" class="nav-link active fs-5" data-bs-toggle="tab"
+                data-bs-target="#tabFade-pane-1" role="tab" aria-controls="tabFade-pane-1" aria-selected="true">Received
+                Messages <span class="badge bg-primary text-light">{{ r_count }}</span></button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button type="button" id="tabFade-2" class="nav-link fs-5" data-bs-toggle="tab"
+                data-bs-target="#tabFade-pane-2" role="tab" aria-controls="tabFade-pane-2" aria-selected="false">Sent
+                Messgaes<span class="badge bg-primary text-light ms-2">{{ s_count }}</span></button>
+        </li>
+
+    </ul>
+    <div class="tab-content shadow px-3 py-2">
+        <div id="tabFade-pane-1" class="tab-pane fade show active" role="tabpanel" aria-labelledby="tabFade-1">
+
+
+            {% if received_messages %}
+
+            {% for message in received_messages %}
+            <div>
+                <div class="row">
+                    <div class="col col-9">
+                        <h4 class="d-inline-block me-2"> {{ message.sender }}</h4><small>sent at {{ message.sent_at }}</small>
+                    </div>
+                    <div class="col col-3 text-end">
+                        <a href="{% url 'message-form-page' message.sender.username %}"
+                            class="btn btn-sm btn-light shadow rounded my-2">REPLY <i class="fas fa-reply ps-1"></i></a>
+                    </div>
+                </div>
+
+                <p class="lead"><i class="far fa-message pe-3"></i>{{ message.body }}</p>
+
+                <hr>
+
+            </div>
+            {% endfor%}
+
+            {% else %}
+            <p class="lead my-2">You have not received any messages yet.</p>
+            {% endif %}
+
+        </div>
+
+
+
+        <div id="tabFade-pane-2" class="tab-pane fade" role="tabpanel" aria-labelledby="tabFade-2">
+
+            {% if sent_messages %}
+
+            {% for message in sent_messages %}
+            <div>
+                <small> You sent to</small> 
+                <h4 class="d-inline-block mx-1">
+                    {{ message.inbox.owner }}
+                </h4>
+                <small>at {{ message.sent_at }}</small>
+
+                <p class="lead"><i class="far fa-message pe-3"></i>{{ message.body }}</p>
+
+                <hr>
+
+            </div>
+            {% endfor%}
+
+            {% else %}
+            <p class="lead my-2">You have not sent any messages yet.</p>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

@@ -13,7 +13,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 px-5 fs-3">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 px-4 fs-3">
 
         {% if user.is_authenticated %}
         <li class="nav-item dropdown me-5 mb-3 mb-md-0">
@@ -40,6 +40,7 @@
             data-bs-toggle="dropdown" role="button" aria-expanded="false">Note</button>
           <div class="dropdown-menu" aria-labelledby="navbarWithDropdown">
             <a class="dropdown-item text-uppercase" href="{% url 'note-page' %}">My Notes</a>
+            <a class="dropdown-item text-uppercase" href="{% url 'bookmark-note-page' %}">Bookmarks</a>
           </div>
         </li>
         {% endif %}
@@ -51,11 +52,16 @@
           <div class="dropdown-menu" aria-labelledby="navbarWithDropdown">
             {% if user.is_authenticated %}
 
+
+            <a class="dropdown-item text-uppercase" href="{% url 'account-page' user.profile.username %}">Profile</a>
+            <a class="dropdown-item text-uppercase" href="{% url 'inbox-page' %}">Inbox</a>
               <form action="{% url 'home-page' %}" method="POST">
                 {% csrf_token %}
                 <button type="submit" name="action" value="logout"
                   class="btn dropdown-item me-5 mb-3 mb-md-0">LOGOUT</button>
               </form>
+
+              
             
             {% else %}
             
@@ -71,7 +77,41 @@
       </ul>
       
       {% if user.is_authenticated %}
-      <span class="h3 text-light p-2 mx-5 shadow rounded my-2">{{ user.profile.coin }} <i class="fas fa-coins"></i></span>
+
+      <button class="btn mx-4 shadow text-light" data-bs-toggle="modal"
+                    data-bs-target="#modalVertical"><span class="ps-1"><i class="fas fa-bell pe-2"></i>
+                      {{ user.profile.notification_set.count }}
+                    </span>
+                </button>
+                <div class="modal fade" id="modalVertical" tabindex="-1" aria-labelledby="modalVerticalTitle"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalVerticalTitle">Notifications</h5>
+                                <form action="{% url 'home-page' %}" method="POST">
+                                  {% csrf_token %}
+                                  <button class="btn mx-2" type="submit" name="action" value="notification-delete"><i class="fas fa-trash"></i></button>
+                                </form>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              {% for notification in user.profile.notification_set.all %}
+
+                              <div class="shadow-sm px-3 py-2">
+                              <i class="fas fa-bell pe-2"></i>
+                                <p class="d-inline-block" style="line-height: 0px;">{{ notification.body }}</p>
+                                <small>at {{ notification.created_at }}</small>
+                              </div>
+                                
+                              {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+      <a href="{% url 'note-page' %}" class="btn text-light p-2 me-4 shadow rounded my-2"><i class="fas fa-coins fa-bounce pe-2"></i>{{ user.profile.coin }} </a>
       {% endif %}
 
       <form class="d-flex my-2" method="POST" action="">

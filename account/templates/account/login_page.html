@@ -2,8 +2,13 @@
 
 {% block content %}
 
-<div class="container my-4">
+<div class="container pt-5">
     <div class="card shadow rounded p-4 w-75 mx-auto">
+
+      {% if user.is_authenticated %}
+      <p class="lead text-center">You are already logged in.</p>
+      {% else %}
+
       <h3 class="display-3 my-3 text-uppercase text-center">Login Here</h3>
         <form action="" method="POST">
             {% csrf_token %}
@@ -27,6 +32,10 @@
 
             <button type="submit" class="btn btn-primary mt-4" name="action">LOGIN</button>
         </form>
+      {% endif %}
+      
+
+
     </div>
 </div>
 

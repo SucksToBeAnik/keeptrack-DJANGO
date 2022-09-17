@@ -9,14 +9,6 @@ from skill.models import Skill, SkillObj
 
 # Create your views here.
 
-# def project_delete_page(request,pk):
-#     project = Project.objects.get(id=pk)
-#     delete = True
-#     if request.method == 'POST':
-#         project.delete()
-#         messages.success(request,'The project has been deleted successfully!')
-#         return redirect('project-page')
-#     return render(request,'project/single_project_page.html',{'delete':delete})
 
 
 @login_required(login_url='login-page')
@@ -42,7 +34,7 @@ def project_form_page(request):
                     skill_obj = Skill.objects.get(pk=int(skill_id))
                     SkillObj.objects.create(skill=skill_obj,content_object=project)
                     skill_obj.update_skill_level(request,50)
-                messages.success(request,'The project has been added successfully!')
+                messages.success(request,f'Your project {project.title} has been added successfully!')
                 return redirect('project-page')
             else:
                 messages.warning(request, 'Please add some skills to your project.')
@@ -64,7 +56,7 @@ def project_form_page(request):
                 else:
                     project.project_state = False
                 form.save()
-                messages.success(request,'The project has been updated successfully!')
+                messages.success(request,f'Your project {project.title} has been updated successfully!')
                 return redirect('single-project-page',pk=project.id)
                 
     
@@ -78,7 +70,7 @@ def single_project_page(request,pk):
     
     if request.method == 'POST' and project.owner == request.user.profile:
         project.delete()
-        messages.success(request, f"Project {project.title} has been deleted successfully!")
+        messages.success(request, f"Your project {project.title} has been deleted.")
         return redirect('project-page')
     context = {
         'project':project,
@@ -86,8 +78,7 @@ def single_project_page(request,pk):
     return render(request,'project/single_project_page.html',context)
 
 
-# def home_page(request):
-#     return render(request,'project/home_page.html')
+
 @login_required(login_url='login-page')
 def project_page(request):
     profile = request.user.profile

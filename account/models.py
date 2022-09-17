@@ -8,7 +8,7 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,null=True,blank=True)
-    profile_image = models.ImageField(null=True,blank=True,upload_to='keeptrack/images/')
+    profile_image = models.ImageField(null=True,blank=True,upload_to='keeptrack/images/',default = 'keeptrack/default_images/default_profile_i2ejjp.png')
     username = models.CharField(max_length=255)
     first_name = models.CharField(max_length=255,null=True,blank=True)
     last_name = models.CharField(max_length=255,null=True,blank=True)
@@ -19,7 +19,7 @@ class Profile(models.Model):
     linkedin = models.URLField(max_length=2000,blank=True,null=True)
     youtube = models.URLField(max_length=2000,blank=True,null=True)
 
-    coin = models.IntegerField(default=0,null=True,blank=True)
+    coin = models.IntegerField(default=100,null=True,blank=True)
 
     def add_coin(self,coin):
         self.coin += coin
@@ -33,9 +33,25 @@ class Profile(models.Model):
         return self.username
 
 
+class Inbox(models.Model):
+    owner = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.owner.username
+
+class Message(models.Model):
+    sender = models.ForeignKey(Profile, on_delete=models.SET_NULL,null=True)
+    inbox = models.ForeignKey(Inbox, on_delete = models.CASCADE)
+    body = models.TextField(max_length=2000)
+    sent_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-sent_at']
+
+
+# signals
 def createProfile(sender, instance, created, **kwargs):
-    print("Created:",created)
     if created:
         user = instance
         profile = Profile.objects.create(
@@ -45,6 +61,7 @@ def createProfile(sender, instance, created, **kwargs):
             first_name = user.first_name,
             last_name = user.last_name,
         )
+        Inbox.objects.create(owner = profile)
 post_save.connect(createProfile,sender=User)
 
 
@@ -62,8 +79,12 @@ def updateUser(sender,instance,created,**kwargs):
     profile = instance
     user = profile.user
     if created == False:
-        user.first_name = profile.first_name
-        user.last_name = profile.last_name
+        if profile.first_name:
+            user.first_name = profile.first_name
+        if profile.last_name:
+            user.last_name = profile.last_name
+        if profile.email:
+            user.email = profile.email
         user.username = profile.username
-        user.email = profile.email
+        
         user.save()

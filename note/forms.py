@@ -9,6 +9,6 @@ class NoteForm(ModelForm):
 
         widgets = {
             'title':forms.TextInput(attrs={'class':'form-control'}),
-            'note_iamge':forms.FileInput(attrs={'class':'form-control'}),
-            'body':forms.Textarea(attrs={'class':'form-control'}),
+            'note_image':forms.FileInput(attrs={'class':'form-control'}),
+            'body':forms.Textarea(attrs={'class':'form-control'}), 
         }

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from .models import Note, FeaturedNote
+from .models import Note, FeaturedNote, BookmarkedNote
 from .forms import NoteForm
 
 from feedback.forms import CommentForm
@@ -8,12 +8,31 @@ from feedback.models import Like,Comment
 from project.models import Project
 from skill.models import Skill
 from account.models import Profile
+from notification.models import Notification
 
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+
+@login_required(login_url='login-page')
+def bookmark_note_page(request):
+    profile = request.user.profile
+    queryset = profile.bookmarkednote_set.all()
+    if request.method == 'POST':
+        id = int(request.POST.get('bookmarked_note_id'))
+        bookmarked_note = BookmarkedNote.objects.get(pk=id)
+        if bookmarked_note.owner == profile:
+            bookmarked_note.delete()
+            return redirect('bookmark-note-page')
+        else:
+            messages.warning(request, 'You are not allowed to perform this task!')
+            return redirect('bookmark-note-page')
+    context = {
+        'queryset':queryset,
+    }
+    return render(request,'note/bookmark_note_page.html',context)
 
 
 @login_required(login_url='login-page')
@@ -35,10 +54,11 @@ def single_note_page(request,pk):
     note = Note.objects.get(pk=pk)
     form = CommentForm()
     current_owner_id = request.user.profile.id
+    current_owner = Profile.objects.get(pk=current_owner_id)
 
     if request.method == 'POST' and request.POST.get('action') == 'delete' and request.user.profile == note.owner:
         note.delete()
-        messages.success(request, 'Your note was successfully deleted!')
+        messages.success(request, 'Your note was deleted!')
         return redirect('home-page')
     elif request.method == 'POST' and request.POST.get('action') == 'like':
         likes = Like.objects.values()
@@ -49,6 +69,10 @@ def single_note_page(request,pk):
                 break
         if count == 0:
             Like.objects.create(content_object = note, owner_id = current_owner_id)
+            Notification.objects.create(
+                owner = note.owner,
+                body = f"{current_owner} has liked your note '{note.title}.'"
+            )
             return redirect('single-note-page',pk=note.id)
     
     elif request.method == 'POST' and request.POST.get('action') == 'comment-create':
@@ -60,11 +84,30 @@ def single_note_page(request,pk):
             profile = Profile.objects.get(pk=current_owner_id)
             profile.add_coin(25)
             comment.save()
+            Notification.objects.create(
+                owner = note.owner,
+                body = f"{current_owner} has commented on your note '{note.title}'."
+            )
             return redirect('single-note-page',pk=note.id)
         else:
             messages.error(request, 'Please add something to your feedback.')
-
     
+    elif request.method == 'POST' and request.POST.get('action')[:14] == 'comment-delete':
+        comment_id = int(request.POST.get('action')[15:])
+        comment = Comment.objects.get(pk=comment_id)
+        if request.user.profile == note.owner or request.user.is_superuser or request.user.profile == comment.owner:
+            comment.delete()
+            return redirect('single-note-page',pk=note.id)
+        else:
+            messages.warning(request, 'You are not authorized to delete this.')
+            return redirect('single-note-page',pk=note.id)
+    elif request.method == 'POST' and request.POST.get('action') == 'bookmark':
+        BookmarkedNote.objects.create(
+            owner = current_owner,
+            note = note
+        )
+        messages.success(request, 'Added to bookmarks.')
+        return redirect('single-note-page',pk=note.id)
 
 
     like_count = note.like.count()
@@ -79,6 +122,8 @@ def single_note_page(request,pk):
     }
     return render(request, 'note/single_note_page.html',context)
 
+
+@login_required(login_url='login-page')
 def note_page(request):
     owner = request.user.profile
     queryset = owner.note_set.all()
@@ -92,9 +137,11 @@ def note_page(request):
                 break
         if count == 1:
             messages.info(request, 'You have already featured this note.')
-        elif owner.coin >= 25 and count == 0:
+        elif owner.coin >= 50 and count == 0:
             FeaturedNote.objects.create(note=note)
-            owner.reduce_coin(25)
+            owner.reduce_coin(50)
+            messages.success(request, 'Your note was featured. Now others can see your note on the home page.')
+            return redirect('note-page')
         else:
             messages.warning(request, 'You do not have enough coins to feature this note. Earn coins by commenting on others featured note.')
 

@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+<div class="container pb-5">
+    <h4 class="display-4 text-center my-5">Bookmarked Notes</h4>
+
+        {% if queryset %}
+        <div class="row">
+          {% for bookmarked_note in queryset %}
+          <div class="col col-12 col-md-6">
+            <div class="card p-2 mx-3 my-3" id="project-page-card">
+              {% if bookmarked_note.note.note_image %}
+              <img src="{{ bookmarked_note.note.note_image.url }}" class="img-fluid w-100 shadow rounded" id="note-image-h"
+                alt="Note Image" />
+              {% else %}
+              <img src="{% static 'images/default_note.png' %}" class="img-fluid w-100 shadow rounded" id="note-image-h"
+                alt="Note Image" />
+              {% endif %}
+    
+              <div class="card-body text-white">
+                <div class="row">
+                  <h5 class="col col-8 card-title display-5 font-monospace">{{ bookmarked_note.note.title }}</h5>
+    
+                  <div class="col col-4 py-4">
+                    <span class="p-1 mx-1 rounded shadow">{{ bookmarked_note.note.like.count }} <i
+                        class="fas fa-heart"></i></span>
+                    <span class="p-1 mx-1 rounded shadow">{{ bookmarked_note.note.comment.count }} <i
+                        class="fas fa-comment"></i></span>
+
+                        <form action="" method="POST" class=" d-inline-block">
+                            {% csrf_token %}
+                            <button class="btn shadow px-2 py-0 text-light mx-1" title="Unbookmark" type="submit" name="bookmarked_note_id" value="{{ bookmarked_note.id }}"><i class="fas fa-bookmark"></i></button>
+                        </form>
+
+                  </div>
+                </div>
+    
+                <p>Published on {{ bookmarked_note.note.created_at }}</p>
+    
+    
+                <figure class="py-3">
+                  <blockquote class="blockquote">
+                    <p class="lead">{{ bookmarked_note.note.body|slice:"60" }}
+                  </blockquote>
+                  <figcaption class="blockquote-footer text-light">Written by
+                    <a href="{% url 'account-page' bookmarked_note.note.owner.username %}" class="fs-5 text-light"><cite title="Source Title">{{ bookmarked_note.note.owner }}</cite></a>
+                  </figcaption>
+                </figure>
+    
+    
+    
+                <div class="text-center">
+                  <a href="{% url 'single-note-page' bookmarked_note.note.id %}"
+                    class="btn btn-outline-light py-2 px-3 shadow">READ NOTE
+                    <span><i class="fas fa-book px-2"></i></span>
+                  </a>
+                </div>
+    
+    
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+    
+        </div>
+        {% else %}
+        <p class="lead text-center">You have not bookmarked any notes yet.</p>
+        {% endif %}
+</div>
+{% endblock %}

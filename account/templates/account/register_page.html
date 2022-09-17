@@ -5,7 +5,7 @@
 <div class="container my-4">
     <div class="card shadow rounded p-4 w-75 mx-auto">
       <h3 class="display-3 my-3 text-uppercase text-center">Register Here</h3>
-        <form action="{% url 'home-page' %}" method="POST">
+        <form action="" method="POST">
             {% csrf_token %}
 
             {% for field in form %}

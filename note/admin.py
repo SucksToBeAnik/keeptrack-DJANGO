@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Note, FeaturedNote
+from .models import Note, FeaturedNote,BookmarkedNote
 
 # Register your models here.
 
@@ -10,3 +10,5 @@ class NoteAdmin(admin.ModelAdmin):
 @admin.register(FeaturedNote)
 class FeaturedNoteAdmin(admin.ModelAdmin):
     list_display = ['note']
+
+admin.site.register(BookmarkedNote)

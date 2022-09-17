@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container my-2 py-2 px-3">
+    <div class="shadow rounded w-75 mx-auto py-2 px-3">
+        <h3 class="display-3 text-center my-2">Send a Message</h3>
+
+        <button class="btn btn-primary pb-2 my-3">Receiver<span class="badge bg-light text-dark ms-2">{{ receiver }}</span></button>
+        <form action="" method="POST" class="pb-2">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary px-3 py-2 my-2" type="submit">SEND</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

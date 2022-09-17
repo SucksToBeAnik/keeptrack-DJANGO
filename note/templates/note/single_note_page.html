@@ -6,7 +6,13 @@
     <div class="card w-100 mx-auto">
 
         <div class="card-body">
-            <h4 class="card-title text-center display-4 font-monospace">{{ note.title }}</h4>
+            <h4 class="card-title text-center display-4 font-monospace position-relative">{{ note.title }}</h4>
+
+            <form action="" method="POST">
+                {% csrf_token %}
+                <button class="btn btn-primary px-2 py-1 position-absolute top-0 end-0" name="action" value="bookmark"><i class="fas fa-bookmark pe-2"></i>BOOKMARK</button>
+            </form>
+
 
 
             {% if request.user.profile == note.owner %}
@@ -74,44 +80,54 @@
 
                     <form action="" method="POST">
                         {% csrf_token %}
-                        <button type="submit" class="btn shadow px-4 py-2" name="action" value="like">{{ like_count }}
-                            <i class="fas fa-heart ps-2"></i> </button>
+                        <button type="submit" class="btn btn-primary shadow px-2 py-1" name="action" value="like"><i class="fas fa-heart pe-2 shadow"></i>{{ like_count }}
+                             </button>
                     </form>
                 </div>
 
                 <div class="col col-6 text-center">
-                    <button class="btn shadow px-4 py-2">{{ comment_count }} <i class="fas fa-comment ps-2"></i> </button>
+                    <button class="btn btn-primary shadow px-2 py-1"> <i class="fas fa-comment pe-2 shadow"></i>{{ comment_count }}
+                    </button>
                 </div>
             </div>
         </div>
     </div>
     <div class="rounded">
-        
+
         {% if request.user.profile != note.owner %}
         <form action="" method="POST">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn btn-primary py-2 px-4 mt-1 mb-3" name="action" value="comment-create">Comment</button>
+            <button type="submit" class="btn btn-primary py-2 px-4 mt-1 mb-3" name="action"
+                value="comment-create">Comment</button>
         </form>
         {% endif %}
 
-        <div class=" shadow rounded my-3">
-            <h3 class="display-3 text-center text-muted py-2">Feedback</h3>
-
+        <h3 class="display-3 text-center text-muted py-2">Feedback</h3>
+        <div class="shadow-sm rounded my-3 w-75 mx-auto">
             {% if comments %}
-        {% for comment in comments %}
-        <div class="py-1 px-3">
-            <h4 class="text-primary">{{ comment.owner.username }}</h4>
-            <p class="lead">{{ comment.body }}</p>
-            <hr>
+            {% for comment in comments %}
+            <div class="py-1 px-3">
+
+                <div class="row">
+                <a href="{% url 'account-page' comment.owner.username %}" class="text-primary col col-10 h4 text-decoration-none"><i class="fas fa-user pe-2"></i>{{ comment.owner.username }}</a>
+                <div class="col col-2 text-center">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-danger" type="submit" name="action" value="comment-delete-{{ comment.id }}"><i class="fas fa-trash"></i></button>
+                    </form>
+                </div>
+            </div>
+                <p class="lead">{{ comment.body }}</p>
+                <div class="text-center"><i class="fas fa-gears fa-spin"></i></div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="py-1 px-3">
+                <p class="lead">There are currently no feedbacks for this note.</p>
+            </div>
+            {% endif %}
         </div>
-        {% endfor %}
-        {% else %}
-        <div class="py-1 px-3">
-            <p class="lead">There are currently no feedbacks for this note.</p>
-        </div>
-        {% endif %}
-    </div>
 
     </div>
 

@@ -120,8 +120,11 @@
             {% for note in project.note.all %}
             <div class="col-12 col-md-6 my-3">
                 <div class="rounded shadow p-3">
-                    <h5 class="display-5 text-center font-monospace">{{ note.title }}</h5>
-                    <p class="text-center">Published on {{ note.created_at }}</p>
+                    <h5 class="display-5 font-monospace d-inline-block">{{ note.title }}</h5>
+                    <div class="text-center d-inline-block float-end">
+                        <span class="rounded px-2 py-1 mx-2 shadow"><i class="fas fa-heart pe-2"></i>{{ note.like.count }}</span>
+                        <span class="rounded px-2 py-1 mx-2 shadow"><i class="fas fa-comment pe-2"></i>{{ note.comment.count }}</span>
+                    </div>
                     <p class="lead my-2">{{ note.body|slice:"100" }}</p>
                     <div class="text-center"><a href="{% url 'single-note-page' note.id %}"
                             class="btn btn-outline-light mt-2 px-4 shadow-lg text-dark">READ</a></div>
