@@ -29,7 +29,7 @@
             <div class="col-12 col-md-10">
                 <a href="{% url 'account-page' account.username %}" class="d-block text-decoration-none text-dark">
                 <img src="{{ account.profile.profile_image.url }}" alt="" class="img-thumbnail rounded-circle d-inline-block me-2" style="width: 50px ;">
-                <p class="lead d-inline-block">{{ account.username }} was last active on {{ account.last_login }}.</p>
+                <p class="lead">{{ account.username }} was last active on {{ account.last_login }}.</p>
             </a>
             </div>
 

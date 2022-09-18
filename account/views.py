@@ -48,7 +48,7 @@ def dashboard(request):
 
 def search_page(request,searched_value):
     try:
-        queryset = Profile.objects.filter(username = searched_value)
+        queryset = Profile.objects.filter(username__icontains = searched_value)
     except:
         queryset = None
     context = {
