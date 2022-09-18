@@ -5,8 +5,8 @@
 <div class="container my-2">
     <div class="card w-100 mx-auto">
 
-        <div class="card-body">
-            <h1 class="card-title text-center font-monospace position-relative pb-3">{{ note.title }}</h1>
+        <div class="card-body position-relative">
+            <h1 class="card-title text-center font-monospace pt-4 pb-3">{{ note.title }}</h1>
 
             <form action="" method="POST">
                 {% csrf_token %}
@@ -65,7 +65,7 @@
                     id="single-note-image-h" alt="Note Image" /></div>
             {% endif %}
 
-            <figure class="py-3  px-5">
+            <figure class="py-3 px-2 px-md-5">
                 <blockquote class="blockquote">
                     <p class="fs-5">{{ note.body|linebreaksbr }}
                 </blockquote>

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <h3 class="mb-5 display-3 text-center">DASHBOARD</h3>
+    {% if user.is_superuser %}
+    <div class="shadow rounded w-75 mx-auto px-3 px-md-5 py-4">
+
+        <div class="row">
+
+            <div class="col col-12 col-md-3">
+        <div class="mb-2">
+            <div class="bg-primary rounded shadow px-2 py-1 text-light d-inline-block"><span class="badge text-dark bg-light me-2">{{ user_count }}</span>total users</div>
+        </div>
+        <div class="mb-2">
+            <div class="bg-primary rounded shadow px-2 py-1 text-light d-inline-block"><span class="badge text-dark bg-light me-2">{{ project_count }}</span>total projects</div>
+        </div>
+        <div class="mb-2">
+            <div class="bg-primary rounded shadow px-2 py-1 text-light d-inline-block"><span class="badge text-dark bg-light me-2">{{ note_count }}</span>total notes</div>
+        </div>
+    </div>
+    <div class="col col-12 col-md-9">
+        <!-- <div class="text-center"><h5 class="shadow rounded px-2 py-1 bg-primary text-light text-center d-inline">Users</h5></div> -->
+
+        
+        {% for account in user_queryset %}
+
+        <div class="row shadow-sm rounded my-2 py-2 px-0 px-md-2 ">
+            <div class="col-12 col-md-10">
+                <a href="{% url 'account-page' account.username %}" class="d-block text-decoration-none text-dark">
+                <img src="{{ account.profile.profile_image.url }}" alt="" class="img-thumbnail rounded-circle d-inline-block me-2" style="width: 50px ;">
+                <p class="lead d-inline-block">{{ account.username }} was last active on {{ account.last_login }}.</p>
+            </a>
+            </div>
+
+            <div class="col-12 col-md-2">
+                
+                <form action="" method='POST'>
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-danger" name="action"
+                        value="delete-{{ account.id }}" title="Delete this account?"><i class="fas fa-trash"></i></button>
+                </form>
+
+
+                
+            </div>
+        </div>
+
+        {% endfor %}
+    
+    </div>
+    </div>
+
+
+    </div>
+        {% else %}
+        <p class="text-center lead">You are not authorized to view this page.</p>
+        {% endif %}
+    
+</div>
+{% endblock %}

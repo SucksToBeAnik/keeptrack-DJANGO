@@ -79,19 +79,19 @@
       {% if user.is_authenticated %}
 
       <button class="btn mx-4 shadow text-light" data-bs-toggle="modal"
-                    data-bs-target="#modalVertical"><span class="ps-1"><i class="fas fa-bell pe-2"></i>
+                    data-bs-target="#notificationModal"><span class="ps-1"><i class="fas fa-bell pe-2"></i>
                       {{ user.profile.notification_set.count }}
                     </span>
                 </button>
-                <div class="modal fade" id="modalVertical" tabindex="-1" aria-labelledby="modalVerticalTitle"
+                <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalTitle"
                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="modalVerticalTitle">Notifications</h5>
+                                <h5 class="modal-title" id="notificationModalTitle">Notifications</h5>
                                 <form action="{% url 'home-page' %}" method="POST">
                                   {% csrf_token %}
-                                  <button class="btn mx-2" type="submit" name="action" value="notification-delete"><i class="fas fa-trash"></i></button>
+                                  <button class="btn mx-2" type="submit" name="action" value="notification-delete" title="Delete all notifications?"><i class="fas fa-trash"></i></button>
                                 </form>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>

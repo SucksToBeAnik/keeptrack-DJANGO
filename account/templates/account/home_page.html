@@ -7,7 +7,7 @@
   <div class="py-3 px-3 shadow-sm">
 
     {% if user.is_authenticated %}
-    <h5 class="display-5 text-center">What skills are you learning today <span class="shadow rounded px-3 py-1 bg-primary text-light"> {{ request.user }}</span></h5>
+    <h5 class="display-5 text-center">What skills are you learning today <span class="shadow rounded px-3 py-0 py-md-1 bg-primary text-light"> {{ request.user }}</span></h5>
     <p class="text-center lead fs-3 py-3">Keep track of your progress easily. Make progress by adding skills to your
       projects!</p>
       {% else %}
@@ -70,9 +70,9 @@
     
               <div class="card-body text-white">
                 <div class="row">
-                  <h3 class="col col-9 card-title font-monospace">{{ featured_note.note.title }}</h3>
+                  <h3 class="col col-12 col-md-9 card-title font-monospace">{{ featured_note.note.title }}</h3>
     
-                  <div class="col col-3 py-4">
+                  <div class="col col-12 col-md-3 pb-2 pt-0 pt-md-2">
                     <span class="p-1 mx-1 rounded shadow">{{ featured_note.note.like.count }} <i
                         class="fas fa-heart"></i></span>
                     <span class="p-1 mx-1 rounded shadow">{{ featured_note.note.comment.count }} <i
@@ -83,7 +83,7 @@
                 <p>Published on {{ featured_note.note.created_at }}</p>
     
     
-                <figure class="py-3">
+                <figure class="py-1 py-md-3">
                   <blockquote class="blockquote">
                     <p class="lead">{{ featured_note.note.body|slice:"60" }}
                   </blockquote>
@@ -134,9 +134,9 @@
     
               <div class="card-body text-white">
                 <div class="row">
-                  <h3 class="col col-9 card-title font-monospace">{{ featured_note.note.title }}</h3>
+                  <h3 class="col col-12 col-md-9 card-title font-monospace">{{ featured_note.note.title }}</h3>
     
-                  <div class="col col-3 py-4">
+                  <div class="col col-12 col-md-3 pb-2 pt-0 pt-md-2">
                     <span class="p-1 mx-1 rounded shadow">{{ featured_note.note.like.count }} <i
                         class="fas fa-heart"></i></span>
                     <span class="p-1 mx-1 rounded shadow">{{ featured_note.note.comment.count }} <i
@@ -147,7 +147,7 @@
                 <p>Published on {{ featured_note.note.created_at }}</p>
     
     
-                <figure class="py-3">
+                <figure class="py-1 py-md-3">
                   <blockquote class="blockquote">
                     <p class="lead">{{ featured_note.note.body|slice:"60" }}
                   </blockquote>

@@ -59,7 +59,7 @@ def single_note_page(request,pk):
     if request.method == 'POST' and request.POST.get('action') == 'delete' and request.user.profile == note.owner:
         note.delete()
         messages.success(request, 'Your note was deleted!')
-        return redirect('home-page')
+        return redirect('note-page')
     elif request.method == 'POST' and request.POST.get('action') == 'like':
         likes = Like.objects.values()
         count = 0

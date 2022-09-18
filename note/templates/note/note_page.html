@@ -27,25 +27,30 @@
 
         <div class="card-body text-white">
           <div class="row">
-            <h3 class="col col-9 card-title font-monospace">{{ note.title }}</h3>
+            <h3 class="col col-12 col-md-9 card-title font-monospace">{{ note.title }}</h3>
 
-            <div class="col col-3 py-4">
+            <div class="col col-12 col-md-3 pb-2 pt-0 pt-md-2">
               <span class="p-1 mx-1 rounded shadow">{{ note.like.count }} <i class="fas fa-heart"></i></span>
               <span class="p-1 mx-1 rounded shadow">{{ note.comment.count }} <i class="fas fa-comment"></i></span>
             </div>
           </div>
           
-          <p >Published on {{ note.created_at }}</p>
-
-          <p class="lead">{{ note.body|slice:"60"}}</p>
+          <figure class="py-1 py-md-3">
+            <blockquote class="blockquote">
+              <p class="lead">{{ note.body|slice:"60" }}
+            </blockquote>
+            <figcaption class="blockquote-footer text-light">Written by
+              <a href="{% url 'account-page' note.owner.username %}" class="fs-5 text-light"><cite title="Source Title">{{ note.owner }}</cite></a>
+            </figcaption>
+          </figure>
 
 
           <div class="row">
           <div class="text-center col col-6">
             <a
               href="{% url 'single-note-page' note.id %}"
-              class="btn btn-outline-light py-2 px-3 mt-4 shadow"
-              >READ NOTE
+              class="btn btn-outline-light py-2 px-3 shadow"
+              >READ
               <span><i class="fas fa-book px-2"></i></span>
             </a>
           </div>
@@ -54,11 +59,9 @@
           <div class="col col-6">
             <form action="" method="POST">
               {% csrf_token %}
-              <div class="text-center"><button type="submit" name="note-id" value="{{ note.id }}" class="btn btn-outline-light py-2 px-3 shadow mt-4" title="Featuring this note will cost you 50 coins.">FEATURE NOTE <span><i class="fas fa-upload px-1"></i></span> </button></div>
+              <div class="text-center"><button type="submit" name="note-id" value="{{ note.id }}" class="btn btn-outline-light py-2 px-3 shadow" title="Featuring this note will cost you 50 coins.">FEATURE <span><i class="fas fa-upload px-1"></i></span> </button></div>
             </form>
           </div>
-          
-
         </div>
 
         </div>

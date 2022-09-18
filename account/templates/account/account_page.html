@@ -46,11 +46,11 @@
 
         </div>
 
-        <div class="col col-12 col-md-6 px-4 py-2">
-            <button class="btn btn-success mt-5 mb-2">{{ profile.username }} <span class="badge bg-light text-dark">{{ profile.coin }} <i class="fas fa-coins"></i> </span></button>
-            <a href="{% url 'skill-page' %}" class="btn btn-success mt-5 mb-2">skill <span class="badge bg-light text-dark">{{ skill_count }}</span></a>
-            <a href="{% url 'project-page' %}" class="btn btn-success mt-5 mb-2">project <span class="badge bg-light text-dark">{{ project_count }}</span></a>
-            <a href="{% url 'note-page' %}" class="btn btn-success mt-5 mb-2 d-none d-md-inline-block">note <span class="badge bg-light text-dark">{{ note_count }}</span></a>
+        <div class="col col-12 col-md-6 px-4 py-2 mt-5">
+            <button class="btn btn-success  mb-2">{{ profile.username }} <span class="badge bg-light text-dark">{{ profile.coin }} <i class="fas fa-coins"></i> </span></button>
+            <a href="{% url 'skill-page' %}" class="btn btn-success mb-2">skill <span class="badge bg-light text-dark">{{ skill_count }}</span></a>
+            <a href="{% url 'project-page' %}" class="btn btn-success mb-2">project <span class="badge bg-light text-dark">{{ project_count }}</span></a>
+            <a href="{% url 'note-page' %}" class="btn btn-success mb-2">note <span class="badge bg-light text-dark">{{ note_count }}</span></a>
             
 
             {% if profile.bio %}
@@ -64,7 +64,7 @@
             {% endif %}
 
             {% if profile.email %}
-            <p>Want to send me an email instead? Send it at <code>{{ profile.email }}</code></p>
+            <p>Want to send me an email? Send it at <code>{{ profile.email }}</code></p>
             {% endif %}
 
         </div>
@@ -171,24 +171,29 @@
           
                   <div class="card-body text-white">
                     <div class="row">
-                      <h3 class="col col-9 card-title font-monospace">{{ featured_note.note.title }}</h3>
+                      <h3 class="col col-12 col-md-9 card-title font-monospace">{{ featured_note.note.title }}</h3>
           
-                      <div class="col col-3 py-4">
+                      <div class="col col-12 col-md-3 pb-2 pt-0 pt-md-2">
                         <span class="p-1 mx-1 rounded shadow">{{ featured_note.note.like.count }} <i class="fas fa-heart"></i></span>
                         <span class="p-1 mx-1 rounded shadow">{{ featured_note.note.comment.count }} <i class="fas fa-comment"></i></span>
                       </div>
                     </div>
                     
-                    <p >Published on {{ featured_note.note.created_at }}</p>
-          
-                    <p class="lead">{{ featured_note.note.body|slice:"60"}}</p>
+                    <figure class="py-1 py-md-3">
+                      <blockquote class="blockquote">
+                        <p class="lead">{{ featured_note.note.body|slice:"60" }}
+                      </blockquote>
+                      <figcaption class="blockquote-footer text-light">Written by
+                        <a href="{% url 'account-page' featured_note.note.owner.username %}" class="fs-5 text-light"><cite title="Source Title">{{ featured_note.note.owner }}</cite></a>
+                      </figcaption>
+                    </figure>
           
           
                     
                     <div class="text-center">
                       <a
                         href="{% url 'single-note-page' featured_note.note.id %}"
-                        class="btn btn-outline-light py-2 px-3 mt-4 shadow"
+                        class="btn btn-outline-light py-2 px-3 shadow"
                         >READ NOTE
                         <span><i class="fas fa-book px-2"></i></span>
                       </a>
