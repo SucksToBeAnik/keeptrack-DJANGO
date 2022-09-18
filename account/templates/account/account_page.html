@@ -19,9 +19,9 @@
 
     <div class="row my-2">
         <div class="col col-12 col-md-6 p-2">
-            <img src="{{ profile.profile_image.url }}" alt="Profile Image" class="img-fluid rounded-circle mb-3">
+            <img src="{{ profile.profile_image.url }}" alt="Profile Image" id="profile-image" class="img-fluid mb-3 shadow img-thumbnail">
 
-            <div class="text-center">
+            <div class="text-center my-2">
                 {% if profile.portfolio_site %}
                 <a href="{{ profile.portfolio_site }}" class="btn btn-light rounded-circle shadow" target="_blank"><i
                         class="fas fa-user fa-2xl text-dark pe-2"></i></a>
