@@ -135,6 +135,12 @@ def account_update_page(request,username):
 
 @login_required(login_url='login-page')
 def account_page(request,username):
+    if request.method == 'POST' and request.POST.get('action')[:10] == 'unfeature-':
+        featured_note_id = int(request.POST.get('action')[10:])
+        featured_note = FeaturedNote.objects.get(pk = featured_note_id)
+        featured_note.delete()
+        messages.success(request,'Your note was unfeatured from your profile and home page.')
+        return redirect('account-page',username=username)
     profile = Profile.objects.get(username=username)
 
     my_projects = profile.project_set.all()

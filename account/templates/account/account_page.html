@@ -81,7 +81,7 @@
         </li>
 
         <li class="nav-item" role="presentation">
-          <button type="button" id="tabFade-2" class="nav-link fs-3 font-monospace" data-bs-toggle="tab" data-bs-target="#tabFade-pane-2" role="tab" aria-controls="tabFade-pane-2" aria-selected="false">Notes</button>
+          <button type="button" id="tabFade-2" class="nav-link fs-3 font-monospace" data-bs-toggle="tab" data-bs-target="#tabFade-pane-2" role="tab" aria-controls="tabFade-pane-2" aria-selected="false">Featured Notes</button>
         </li>
         
       </ul>
@@ -193,10 +193,15 @@
                     <div class="text-center">
                       <a
                         href="{% url 'single-note-page' featured_note.note.id %}"
-                        class="btn btn-outline-light py-2 px-3 shadow"
+                        class="btn btn-sm btn-outline-light py-2 px-2 shadow me-1"
                         >READ NOTE
                         <span><i class="fas fa-book px-2"></i></span>
                       </a>
+
+                      <form action="" method="POST" class="d-inline-block">
+                        {% csrf_token %}
+                        <button class="btn btn-sm btn-outline-light py-2 px-2 shadow" name="action" value="unfeature-{{ featured_note.id }}">UNFEATURE <i class="fas fa-trash"></i></button>
+                      </form>
                           
           
                   </div>
@@ -208,7 +213,7 @@
         </div>
 
             {% else %}
-            There are no notes to showcase.
+            <p class="lead text-center my-4">There are no notes to showcase.</p>
             {% endif %}
           </div>
     
