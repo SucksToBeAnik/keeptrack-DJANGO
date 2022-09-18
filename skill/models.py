@@ -42,12 +42,22 @@ class Skill(models.Model):
             self.skill_level += 1
             self.current_point = 0
             messages.success(request, f"Congratulations! You have recahed level {self.skill_level} in {self.title}. Keep grinding! you will reach there.")
-
         self.save()
     
     @property
     def needed_point(self):
         return self.skill_level*50 - self.current_point
+    @property
+    def current_point_percentage(self):
+        percentage = (self.current_point/(self.skill_level * 50)) * 100
+        if percentage <= 30:
+            return 25
+        elif percentage <= 60:
+            return 50
+        elif percentage <= 90:
+            return 75
+        else:
+            return 100
 
 # class SkillType(models.Model):
 #     title = models.CharField(max_length=255)

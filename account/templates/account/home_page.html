@@ -7,11 +7,11 @@
   <div class="py-3 px-3 shadow-sm">
 
     {% if user.is_authenticated %}
-    <h5 class="display-5 text-center">What skills are you learning today <span class="shadow rounded px-2 bg-primary text-light"> {{ request.user }}</span></h5>
+    <h5 class="display-5 text-center">What skills are you learning today <span class="shadow rounded px-3 py-1 bg-primary text-light"> {{ request.user }}</span></h5>
     <p class="text-center lead fs-3 py-3">Keep track of your progress easily. Make progress by adding skills to your
       projects!</p>
       {% else %}
-      <h5 class="display-5 text-center">Welcome to <span class="shadow rounded px-2 bg-primary text-light">KeepTrack!</span> Create an account and join the community now.</h5>
+      <h5 class="display-5 text-center">Welcome to <span class="shadow rounded px-3 py-1 bg-primary text-light">KeepTrack!</span> Create an account and join the community now.</h5>
       {% endif %}
 
   </div>
@@ -70,7 +70,7 @@
     
               <div class="card-body text-white">
                 <div class="row">
-                  <h5 class="col col-9 card-title display-5 font-monospace">{{ featured_note.note.title }}</h5>
+                  <h3 class="col col-9 card-title font-monospace">{{ featured_note.note.title }}</h3>
     
                   <div class="col col-3 py-4">
                     <span class="p-1 mx-1 rounded shadow">{{ featured_note.note.like.count }} <i
@@ -134,7 +134,7 @@
     
               <div class="card-body text-white">
                 <div class="row">
-                  <h5 class="col col-9 card-title display-5 font-monospace">{{ featured_note.note.title }}</h5>
+                  <h3 class="col col-9 card-title font-monospace">{{ featured_note.note.title }}</h3>
     
                   <div class="col col-3 py-4">
                     <span class="p-1 mx-1 rounded shadow">{{ featured_note.note.like.count }} <i

@@ -6,7 +6,7 @@
     <div class="card w-100 mx-auto">
 
         <div class="card-body">
-            <h4 class="card-title text-center display-4 font-monospace position-relative">{{ note.title }}</h4>
+            <h1 class="card-title text-center font-monospace position-relative pb-3">{{ note.title }}</h1>
 
             <form action="" method="POST">
                 {% csrf_token %}
@@ -58,16 +58,16 @@
 
             {% if note.note_image %}
             <div class="text-center"><img src="{{ note.note_image.url }}" class="img-fluid w-75 rounded"
-                    id="note-image-h" alt="Note Image" /></div>
+                    id="single-note-image-h" alt="Note Image" /></div>
             {% else %}
 
             <div class="text-center"><img src="{% static 'images/default_note.png' %}" class="img-fluid w-75 rounded"
-                    id="note-image-h" alt="Note Image" /></div>
+                    id="single-note-image-h" alt="Note Image" /></div>
             {% endif %}
 
-            <figure class="py-3">
+            <figure class="py-3  px-5">
                 <blockquote class="blockquote">
-                    <p class="lead">{{ note.body|linebreaksbr }}
+                    <p class="fs-5">{{ note.body|linebreaksbr }}
                 </blockquote>
                 <figcaption class="blockquote-footer mt-2">By
                     <cite title="Source Title">{{ note.owner }}</cite>
