@@ -22,15 +22,16 @@
                 <div class="row">
                   <h3 class="col col-8 card-title font-monospace">{{ bookmarked_note.note.title }}</h3>
     
-                  <div class="col col-4 py-4">
-                    <span class="p-1 mx-1 rounded shadow">{{ bookmarked_note.note.like.count }} <i
+                  <div class="col col-4 pb-4">
+
+                    <span class="p-1 rounded shadow">{{ bookmarked_note.note.like.count }} <i
                         class="fas fa-heart"></i></span>
-                    <span class="p-1 mx-1 rounded shadow">{{ bookmarked_note.note.comment.count }} <i
+                    <span class="p-1 rounded shadow">{{ bookmarked_note.note.comment.count }} <i
                         class="fas fa-comment"></i></span>
 
                         <form action="" method="POST" class=" d-inline-block">
                             {% csrf_token %}
-                            <button class="btn shadow px-2 py-0 text-light mx-1" title="Unbookmark" type="submit" name="bookmarked_note_id" value="{{ bookmarked_note.id }}"><i class="fas fa-bookmark"></i></button>
+                            <button class="btn shadow px-2 py-0 text-light" title="Unbookmark" type="submit" name="bookmarked_note_id" value="{{ bookmarked_note.id }}"><i class="fas fa-bookmark"></i></button>
                         </form>
 
                   </div>
