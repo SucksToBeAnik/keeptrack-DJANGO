@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = str(os.environ.get('DEBUG')) == '1'
 
-ALLOWED_HOSTS = ['keeptrack-io.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1','keeptrack-io.herokuapp.com']
 
 if DEBUG == False:
     ALLOWED_HOSTS.append(os.environ.get('ALLOWED_HOST'))
@@ -92,24 +92,17 @@ WSGI_APPLICATION = 'keeptrack.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# if DEBUG:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'db.sqlite3',
-#         }
-#     }
-# else:
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('NAME'),
-        'USER':os.environ.get('USER'),
-        'PASSWORD':os.environ.get('PASSWORD'),
-        'HOST':os.environ.get('HOST'),
-        'PORT':os.environ.get('PORT')
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 
 

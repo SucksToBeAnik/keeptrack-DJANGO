@@ -156,6 +156,7 @@ def login_page(request):
             return redirect('home-page')
     except:
         messages.error(request, 'Please try to login with valid information!')
+        return render(request,'account/login_page.html')
 
     return render(request,'account/login_page.html')
 
