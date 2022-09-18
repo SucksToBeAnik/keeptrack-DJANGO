@@ -41,7 +41,7 @@ class Inbox(models.Model):
         return self.owner.username
 
 class Message(models.Model):
-    sender = models.ForeignKey(Profile, on_delete=models.SET_NULL,null=True)
+    sender = models.ForeignKey(Profile, on_delete=models.CASCADE,null=True)
     inbox = models.ForeignKey(Inbox, on_delete = models.CASCADE)
     body = models.TextField(max_length=2000)
     sent_at = models.DateTimeField(auto_now_add=True)

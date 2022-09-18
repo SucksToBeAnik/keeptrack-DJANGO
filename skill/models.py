@@ -58,6 +58,8 @@ class Skill(models.Model):
             return 75
         else:
             return 100
+    class Meta:
+        ordering = ['skill_level','current_point']
 
 # class SkillType(models.Model):
 #     title = models.CharField(max_length=255)

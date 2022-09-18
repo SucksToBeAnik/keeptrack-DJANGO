@@ -61,6 +61,12 @@ def search_page(request,searched_value):
 # Create your views here.
 @login_required(login_url='login-page')
 def inbox_page(request):
+    if request.method == 'POST' and request.POST.get('action')[:8] == 'message-':
+        id = int(request.POST.get('action')[8:])
+        message = Message.objects.get(pk = id)
+        message.delete()
+        return redirect('inbox-page')
+
     profile = request.user.profile
     inbox = profile.inbox
     received_messages = inbox.message_set.all()
@@ -68,6 +74,7 @@ def inbox_page(request):
 
     sent_messages = profile.message_set.all()
     sent_messages_count = profile.message_set.count()
+
 
     context = {
         'received_messages':received_messages,
