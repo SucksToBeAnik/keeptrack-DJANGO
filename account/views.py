@@ -109,7 +109,7 @@ def account_page(request,username):
     note_count = profile.note_set.count()
     context = {
         'profile':profile,
-        'my_projects':my_projects,
+        'my_projects':list(my_projects),
 
         'project_count':project_count,
         'skill_count':skill_count,
@@ -123,8 +123,8 @@ def account_page(request,username):
 
 
 def home_page(request):
-    latest_queryset = FeaturedNote.objects.order_by('-created_at')[:31]
-    popular_queryset = FeaturedNote.objects.annotate(like_count=Count('note__like')).order_by('-like_count')[:21]
+    latest_queryset = FeaturedNote.objects.select_related('note').order_by('-created_at')[:31]
+    popular_queryset = FeaturedNote.objects.select_related('note').annotate(like_count=Count('note__like')).order_by('-like_count')[:21]
     context = {
             'latest_queryset':list(latest_queryset),
             'popular_queryset':list(popular_queryset),
