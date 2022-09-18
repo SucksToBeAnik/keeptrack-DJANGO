@@ -14,14 +14,19 @@ class CustomUserCreationForm(UserCreationForm):
             'password2':'Confirm password'
         }
         
-        widgets ={
-            'username': forms.TextInput(attrs={'class':'form-control'}),
-            'first_name': forms.TextInput(attrs={'class':'form-control'}),
-            'last_name': forms.TextInput(attrs={'class':'form-control'}),
-            'email': forms.EmailInput(attrs={'class':'form-control'}),
-            'password1': forms.PasswordInput(attrs={'class':'form-control'}),
-            'password2': forms.PasswordInput(attrs={'class':'form-control'}),
-        }
+        # widgets ={
+        #     'username': forms.TextInput(attrs={'class':'form-control'}),
+        #     'first_name': forms.TextInput(attrs={'class':'form-control'}),
+        #     'last_name': forms.TextInput(attrs={'class':'form-control'}),
+        #     'email': forms.EmailInput(attrs={'class':'form-control'}),
+        #     'password1': forms.PasswordInput(attrs={'class':'form-control'}),
+        #     'password2': forms.PasswordInput(attrs={'class':'form-control'}),
+        # }
+    def __init__(self,*args,**kwargs):
+        super(CustomUserCreationForm,self).__init__(*args,**kwargs)
+
+        for field in self.fields.values():
+            field.widget.attrs.update({'class':'form-control'})
 
 class ProfileForm(ModelForm):
     class Meta:

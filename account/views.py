@@ -8,6 +8,8 @@ from .models import Profile , Inbox, Message
 from django.db.models import Count
 from django.contrib.auth.decorators import login_required
 
+from django.contrib.auth.models import User
+
 
 def search_page(request,searched_value):
     try:
@@ -147,16 +149,34 @@ def home_page(request):
 
 
 def login_page(request):
-    try:
-        username = request.POST.get("username")
-        password = request.POST.get("password")
+    # try:
+    #     username = request.POST.get("username").lower()
+    #     password = request.POST.get("password")
+    #     user = authenticate(request,username=username,password=password)
+    #     if user is not None:
+    #         login(request, user)
+    #         return redirect('home-page')
+    # except:
+    #     messages.error(request, 'Please try to login with valid information!')
+    #     return render(request,'account/login_page.html')
+    if request.user.is_authenticated:
+        return redirect('home-page')
+    if request.method=='POST':
+        username = request.POST.get('username').lower()
+        password = request.POST.get('password')
+
+        try:
+            user = User.objects.get(username=username)
+        except:
+            messages.warning(request,"User does not exist. Please add proper details and try again.")
+            return redirect('login-page')
         user = authenticate(request,username=username,password=password)
         if user is not None:
-            login(request, user)
-            return redirect('home-page')
-    except:
-        messages.error(request, 'Please try to login with valid information!')
-        return render(request,'account/login_page.html')
+            login(request,user)
+            messages.success(request, f"Welcome back {username}! Hope you are having a wonderful day!")
+            return redirect(request.GET['next'] if 'next' in request.GET else 'home-page')
+        else:
+            messages.warning(request,"Your password is incorrect")
 
     return render(request,'account/login_page.html')
 
@@ -172,7 +192,7 @@ def register_page(request):
             login(request,user)
             return redirect('account-page',username=user.username)
         else:
-            messages.error(request,'An error has occured during Registration. Please try again!')
+            messages.warning(request,'An error has occured during Registration. Please try again!')
     context = {
         'form':form,
     }

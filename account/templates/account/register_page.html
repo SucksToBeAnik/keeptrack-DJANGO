@@ -11,6 +11,13 @@
             {% for field in form %}
             <h5>{{ field.label }}</h5>
             {{ field }}
+
+            <ul>
+            {% for error in field.errors %}
+            <li><small class="py-1 text-danger">{{error}}</small></li>
+            {% endfor %}
+        </ul>
+
             {% endfor %}
 
             <div class="mt-4"><button type="submit" class="btn btn-primary">Register</button></div>
