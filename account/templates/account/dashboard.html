@@ -28,7 +28,7 @@
         <div class="row shadow-sm rounded my-2 py-2 px-0 px-md-2 ">
             <div class="col-12 col-md-10">
                 <a href="{% url 'account-page' account.username %}" class="d-block text-decoration-none text-dark">
-                <img src="{{ account.profile.profile_image.url }}" alt="" class="img-thumbnail rounded-circle d-inline-block me-2" style="width: 50px ;">
+                <img src="{{ account.profile.profile_image.url }}" alt="" class="img-thumbnail rounded-circle d-inline-block me-2" style="width: 50px ; height: 50px;">
                 <p class="lead">{{ account.username }} was last active on {{ account.last_login }}.</p>
             </a>
             </div>

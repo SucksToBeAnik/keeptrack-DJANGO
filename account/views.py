@@ -16,6 +16,7 @@ from django.contrib.auth.models import User
 
 @login_required(login_url='login-page')
 def dashboard(request):
+    context = {}
     if request.user.is_superuser:
         if request.method == 'POST' and request.POST.get('action')[:7] == "delete-":
             id = int(request.POST.get('action')[7:])
