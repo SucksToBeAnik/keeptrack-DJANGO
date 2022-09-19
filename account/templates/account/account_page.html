@@ -97,6 +97,7 @@
         <div id="tabFade-pane-1" class="tab-pane fade show active" role="tabpanel" aria-labelledby="tabFade-1">
           
         {% if my_projects %}
+        <div class="row">
         {% for project in my_projects %}
 
 
@@ -144,6 +145,7 @@
         </div>
 
         {% endfor %}
+      </div>
         {% else %}
         <p class="lead text-center my-4">There are no projects to showcase.</p>
         {% endif %}
@@ -154,7 +156,7 @@
         <div id="tabFade-pane-2" class="tab-pane fade" role="tabpanel" aria-labelledby="tabFade-2">
 
             {% if my_notes %}
-<div class="row">
+         <div class="row">
             {% for featured_note in my_notes %}
             <div class="col col-12 col-md-6">
                 <div class="card p-2 mx-3 my-3" id="project-page-card">
