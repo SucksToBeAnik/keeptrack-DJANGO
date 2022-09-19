@@ -55,7 +55,7 @@
             
 
             {% if profile.bio %}
-            <p class="lead py-2">{{ profile.bio }}</p>
+            <p class="lead py-2">{{ profile.bio|linebreaksbr }}</p>
             {% else %}
             <p class="lead py-2">User has not added anything to his/her bio yet.</p>
             {% endif %}
