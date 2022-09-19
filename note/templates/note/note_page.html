@@ -48,7 +48,7 @@
           <div class="row">
           <div class="text-center col col-6">
             <a
-              href="{% url 'single-note-page' note.id %}"
+              href="{% url 'single-note-page' note.id note.slug_title %}"
               class="btn btn-outline-light py-2 px-3 shadow"
               >READ
               <span><i class="fas fa-book px-2"></i></span>

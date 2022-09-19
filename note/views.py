@@ -43,14 +43,14 @@ def note_form_page_update(request,pk):
         form = NoteForm(request.POST,request.FILES,instance = note)
         if form.is_valid():
             form.save()
-            return redirect('single-note-page',pk=pk)
+            return redirect('single-note-page',pk=pk,slug_title =note.slug_title)
     context = {
         'form':form,
     }
     return render(request,'note/note_form_page_update.html',context)
 
 @login_required(login_url='login-page')
-def single_note_page(request,pk):
+def single_note_page(request,pk,slug_title):
     note = Note.objects.get(pk=pk)
     form = CommentForm()
     current_owner_id = request.user.profile.id
@@ -73,7 +73,7 @@ def single_note_page(request,pk):
                 owner = note.owner,
                 body = f"{current_owner} has liked your note '{note.title}.'"
             )
-            return redirect('single-note-page',pk=note.id)
+            return redirect('single-note-page',pk=note.id,slug_title =note.slug_title)
     
     elif request.method == 'POST' and request.POST.get('action') == 'comment-create':
         form = CommentForm(request.POST)
@@ -88,26 +88,27 @@ def single_note_page(request,pk):
                 owner = note.owner,
                 body = f"{current_owner} has commented on your note '{note.title}'."
             )
-            return redirect('single-note-page',pk=note.id)
+            return redirect('single-note-page',pk=note.id,slug_title =note.slug_title)
         else:
             messages.error(request, 'Please add something to your feedback.')
+            return redirect('single-note-page',pk=note.id,slug_title =note.slug_title)
     
     elif request.method == 'POST' and request.POST.get('action')[:14] == 'comment-delete':
         comment_id = int(request.POST.get('action')[15:])
         comment = Comment.objects.get(pk=comment_id)
         if request.user.profile == note.owner or request.user.is_superuser or request.user.profile == comment.owner:
             comment.delete()
-            return redirect('single-note-page',pk=note.id)
+            return redirect('single-note-page',pk=note.id,slug_title =note.slug_title)
         else:
             messages.warning(request, 'You are not authorized to delete this.')
-            return redirect('single-note-page',pk=note.id)
+            return redirect('single-note-page',pk=note.id,slug_title =note.slug_title)
     elif request.method == 'POST' and request.POST.get('action') == 'bookmark':
         BookmarkedNote.objects.create(
             owner = current_owner,
             note = note
         )
         messages.success(request, 'Added to bookmarks.')
-        return redirect('single-note-page',pk=note.id)
+        return redirect('single-note-page',pk=note.id,slug_title =note.slug_title)
 
 
     like_count = note.like.count()

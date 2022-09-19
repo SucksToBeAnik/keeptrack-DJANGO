@@ -48,9 +48,10 @@
 
         <div class="col col-12 col-md-6 px-4 py-2 mt-5">
             <button class="btn btn-success  mb-2">{{ profile.username }} <span class="badge bg-light text-dark">{{ profile.coin }} <i class="fas fa-coins"></i> </span></button>
-            <a href="{% url 'skill-page' %}" class="btn btn-success mb-2">skill <span class="badge bg-light text-dark">{{ skill_count }}</span></a>
-            <a href="{% url 'project-page' %}" class="btn btn-success mb-2">project <span class="badge bg-light text-dark">{{ project_count }}</span></a>
-            <a href="{% url 'note-page' %}" class="btn btn-success mb-2">note <span class="badge bg-light text-dark">{{ note_count }}</span></a>
+            <button class="btn btn-success  mb-2">skill <span class="badge bg-light text-dark">{{ skill_count }} </span></button>
+            <button class="btn btn-success  mb-2">project <span class="badge bg-light text-dark">{{ project_count }} </span></button>
+            <button class="btn btn-success  mb-2">note <span class="badge bg-light text-dark">{{ note_count }} </span></button>
+            
             
 
             {% if profile.bio %}
@@ -82,6 +83,10 @@
 
         <li class="nav-item" role="presentation">
           <button type="button" id="tabFade-2" class="nav-link fs-3 font-monospace" data-bs-toggle="tab" data-bs-target="#tabFade-pane-2" role="tab" aria-controls="tabFade-pane-2" aria-selected="false">Featured Notes</button>
+        </li>
+
+        <li class="nav-item" role="presentation">
+          <button type="button" id="tabFade-3" class="nav-link fs-3 font-monospace" data-bs-toggle="tab" data-bs-target="#tabFade-pane-3" role="tab" aria-controls="tabFade-pane-3" aria-selected="false">Skills</button>
         </li>
         
       </ul>
@@ -192,7 +197,7 @@
                     
                     <div class="text-center">
                       <a
-                        href="{% url 'single-note-page' featured_note.note.id %}"
+                        href="{% url 'single-note-page' featured_note.note.id featured_note.note.slug_title %}"
                         class="btn btn-sm btn-outline-light py-2 px-2 shadow me-1"
                         >READ NOTE
                         <span><i class="fas fa-book px-2"></i></span>
@@ -216,6 +221,28 @@
             <p class="lead text-center my-4">There are no notes to showcase.</p>
             {% endif %}
           </div>
+
+          <div id="tabFade-pane-3" class="tab-pane fade" role="tabpanel" aria-labelledby="tabFade-3">
+
+            {% if my_skills %}
+            <p class="lead text-center pb-2 mt-4">See skill related projects in the Projects Tab</p>
+            <div class="sahdow w-75 mx-auto mb-4">
+              <div class="p-2">
+                {% for skill in my_skills %}
+                <div class="my-2 text-center">
+                  <span class="bg-success px-3 py-2 text-light shadow rounded">{{ skill.title }}
+                    <span class="badge bg-light text-dark ps-2">{{ skill.skill_level }}</span>
+                  </span>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            {% else %}
+            <p class="lead text-center my-4">There are no skills to showcase.</p>
+            {% endif %}
+          </div>
+
+
     
       </div>
 

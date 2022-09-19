@@ -149,7 +149,7 @@ def account_page(request,username):
     my_projects = profile.project_set.all()
     project_count = profile.project_set.count()
 
-    
+    my_skills = profile.skill_set.all()
     skill_count = profile.skill_set.count()
 
     featured_notes = FeaturedNote.objects.all()
@@ -164,8 +164,9 @@ def account_page(request,username):
     context = {
         'profile':profile,
         'my_projects':list(my_projects),
-
         'project_count':project_count,
+
+        'my_skills':list(my_skills),
         'skill_count':skill_count,
 
         'my_notes':my_notes,
@@ -179,6 +180,7 @@ def account_page(request,username):
 def home_page(request):
     latest_queryset = FeaturedNote.objects.select_related('note').order_by('-created_at')[:31]
     popular_queryset = FeaturedNote.objects.select_related('note').annotate(like_count=Count('note__like')).order_by('-like_count')[:21]
+
     context = {
             'latest_queryset':list(latest_queryset),
             'popular_queryset':list(popular_queryset),
@@ -201,16 +203,6 @@ def home_page(request):
 
 
 def login_page(request):
-    # try:
-    #     username = request.POST.get("username").lower()
-    #     password = request.POST.get("password")
-    #     user = authenticate(request,username=username,password=password)
-    #     if user is not None:
-    #         login(request, user)
-    #         return redirect('home-page')
-    # except:
-    #     messages.error(request, 'Please try to login with valid information!')
-    #     return render(request,'account/login_page.html')
     if request.user.is_authenticated:
         return redirect('home-page')
     if request.method=='POST':

@@ -16,7 +16,6 @@ def project_form_page(request):
     if request.GET.get('page') == 'create':
         profile = request.user.profile
         skill_queryset = profile.skill_set.all()
-        print(skill_queryset)
         form = ProjectForm()
         context ={
         'form':form,
@@ -38,6 +37,7 @@ def project_form_page(request):
                 return redirect('project-page')
             else:
                 messages.warning(request, 'Please add some skills to your project.')
+                return render(request,'project/project_form_page.html',context)
                 
     elif request.GET.get('page') == 'update':
         id = request.GET.get('id')
@@ -59,9 +59,6 @@ def project_form_page(request):
                 messages.success(request,f'Your project {project.title} has been updated successfully!')
                 return redirect('single-project-page',pk=project.id)
                 
-    
-
-
     return render(request, 'project/project_form_page.html',context)
 
 @login_required(login_url='login-page')

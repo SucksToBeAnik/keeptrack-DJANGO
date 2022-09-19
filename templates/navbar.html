@@ -79,8 +79,8 @@
       {% if user.is_authenticated %}
 
       
-      <button class="btn mx-4 shadow text-light" data-bs-toggle="modal"
-                    data-bs-target="#notificationModal"><span class="ps-1"><i class="fas fa-bell fa-bounce pe-2"></i>
+      <button class="btn ms-4 me-2 shadow text-light" data-bs-toggle="modal"
+                    data-bs-target="#notificationModal"><span class="ps-1"><i class="fas fa-bell fa-bounce pe-1"></i>
                       {{ user.profile.notification_set.count }}
                     </span>
                 </button>
@@ -101,9 +101,9 @@
                               {% for notification in user.profile.notification_set.all %}
 
                               <div class="shadow-sm px-3 py-2">
-                              <i class="fas fa-bell pe-2"></i>
-                                <p class="d-inline-block" style="line-height: 0px;">{{ notification.body }}</p>
-                                <small>at {{ notification.created_at }}</small>
+                              <span><i class="fas fa-bell pe-2"></i></span>
+                                <p class="d-inline" style="line-height: 20px;">{{ notification.body }} <small>at {{ notification.created_at }}</small></p>
+                                
                               </div>
                                 
                               {% endfor %}
@@ -112,10 +112,11 @@
                     </div>
                 </div>
 
-      <a href="{% url 'note-page' %}" class="btn text-light p-2 me-4 shadow rounded my-2"><i class="fas fa-coins fa-bounce pe-2"></i>{{ user.profile.coin }} </a>
+      <a href="{% url 'inbox-page' %}" class="btn text-light p-2 me-2 shadow rounded my-2"><i class="fas fa-message fa-bounce pe-1"></i>{{ user.profile.inbox.message_set.count }} </a>
+      <a href="{% url 'note-page' %}" class="btn text-light p-2 me-2 shadow rounded my-2"><i class="fas fa-coins fa-bounce pe-1"></i>{{ user.profile.coin }} </a>
 
       {% if user.is_superuser %}
-      <a href="{% url 'dashboard' %}" class="btn text-light p-1 px-2 me-4 shadow rounded my-2"><i class="fas fa-database fa-bounce"></i></a>
+      <a href="{% url 'dashboard' %}" class="btn text-light p-1 px-2 me-2 shadow rounded my-2"><i class="fas fa-database fa-bounce pe-1"></i></a>
       {% endif %}
 
       {% endif %}

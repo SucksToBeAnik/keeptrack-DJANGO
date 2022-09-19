@@ -96,7 +96,7 @@
     
     
                 <div class="text-center">
-                  <a href="{% url 'single-note-page' featured_note.note.id %}"
+                  <a href="{% url 'single-note-page' featured_note.note.id featured_note.note.slug_title %}"
                     class="btn btn-outline-light py-2 px-3 shadow">READ NOTE
                     <span><i class="fas fa-book px-2"></i></span>
                   </a>
@@ -160,7 +160,7 @@
     
     
                 <div class="text-center">
-                  <a href="{% url 'single-note-page' featured_note.note.id %}"
+                  <a href="{% url 'single-note-page' featured_note.note.id featured_note.note.slug_title %}"
                     class="btn btn-outline-light py-2 px-3 shadow">READ NOTE
                     <span><i class="fas fa-book px-2"></i></span>
                   </a>

@@ -6,6 +6,8 @@ from django.contrib.contenttypes.fields import GenericRelation
 from account.models import Profile
 from feedback.models import Like, Comment
 
+from django.utils.text import slugify
+
 # Create your models here.
 
 
@@ -26,6 +28,10 @@ class Note(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+    
+    @property
+    def slug_title(self):
+        return slugify(self.title)
 
 class FeaturedNote(models.Model):
     note = models.OneToOneField(Note, on_delete=models.CASCADE)
