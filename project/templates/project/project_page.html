@@ -28,7 +28,7 @@
 
 
                     {% for skill in project.skill.all %}
-                    <a href="{% url 'single-skill-page' skill.skill.id %}" class="btn btn-light text-dark">
+                    <a href="{% url 'single-skill-page' skill.skill.id %}" class="btn btn-sm btn-light text-dark mb-1">
                         {{ skill.skill.title }}
                         <span class="badge bg-primary text-light">{{ skill.skill.skill_level }}</span>
                     </a>
