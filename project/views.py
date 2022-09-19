@@ -28,6 +28,10 @@ def project_form_page(request):
             if form.is_valid() and skill_list:
                 project = form.save(commit=False)
                 project.owner = request.user.profile
+                if request.POST.get('state') == '1':
+                    project.project_state = True
+                else:
+                    project.project_state = False
                 project.save()
                 for skill_id in skill_list:
                     skill_obj = Skill.objects.get(pk=int(skill_id))
