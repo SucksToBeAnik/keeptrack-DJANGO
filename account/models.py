@@ -12,7 +12,7 @@ class Profile(models.Model):
     username = models.CharField(max_length=255)
     first_name = models.CharField(max_length=255,null=True,blank=True)
     last_name = models.CharField(max_length=255,null=True,blank=True)
-    bio = models.TextField(max_length=2000,blank=True,null=True)
+    bio = models.TextField(max_length=1000,blank=True,null=True)
     email = models.EmailField(max_length=255,blank=True,null=True)
     portfolio_site = models.URLField(max_length=500,blank=True,null=True)
     facebook = models.URLField(max_length=2000,blank=True,null=True)
