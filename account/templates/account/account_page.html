@@ -225,11 +225,12 @@
           <div id="tabFade-pane-3" class="tab-pane fade" role="tabpanel" aria-labelledby="tabFade-3">
 
             {% if my_skills %}
-            <p class="lead text-center pb-2 mt-4">See skill related projects in the Projects Tab</p>
-            <div class="sahdow w-75 mx-auto mb-4">
+            
+            <div class="shadow rounded w-75 mx-auto mb-4">
+              <p class="lead text-center pb-2 mt-4">See skill related projects in the Projects Tab</p>
               <div class="p-2">
                 {% for skill in my_skills %}
-                <div class="my-2 text-center">
+                <div class="text-center mb-4">
                   <span class="bg-success px-3 py-2 text-light shadow rounded">{{ skill.title }}
                     <span class="badge bg-light text-dark ps-2">{{ skill.skill_level }}</span>
                   </span>
