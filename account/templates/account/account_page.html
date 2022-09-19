@@ -227,10 +227,10 @@
             {% if my_skills %}
             
             <div class="shadow rounded w-75 mx-auto mb-4">
-              <p class="lead text-center pb-2 mt-4">See skill related projects in the Projects Tab</p>
+              <p class="lead pb-2 mt-4 ms-3">Find skill related projects in the Projects Tab</p>
               <div class="p-2">
                 {% for skill in my_skills %}
-                <div class="text-center mb-4">
+                <div class="mb-4 ms-3">
                   <span class="bg-success px-3 py-2 text-light shadow rounded">{{ skill.title }}
                     <span class="badge bg-light text-dark ps-2">{{ skill.skill_level }}</span>
                   </span>
